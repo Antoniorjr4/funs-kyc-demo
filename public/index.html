@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANNA Protocol × Funs.ai - Demo KYC Real</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+        
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #4ade80;
+        }
+        
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+        
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+        
+        .success-checkmark .check-icon::before,
+        .success-checkmark .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: #1f2937;
+            transform: rotate(-45deg);
+        }
+        
+        .success-checkmark .check-icon .icon-line {
+            height: 5px;
+            background-color: #4ade80;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+        
+        @keyframes icon-line-tip {
+            0% { width: 0; left: 1px; top: 19px; }
+            54% { width: 0; left: 1px; top: 19px; }
+            70% { width: 50px; left: -8px; top: 37px; }
+            84% { width: 17px; left: 21px; top: 48px; }
+            100% { width: 25px; left: 14px; top: 45px; }
+        }
+        
+        @keyframes icon-line-long {
+            0% { width: 0; right: 46px; top: 54px; }
+            65% { width: 0; right: 46px; top: 54px; }
+            84% { width: 55px; right: 0px; top: 35px; }
+            100% { width: 47px; right: 8px; top: 38px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-shield-halved text-purple-600 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">ANNA Protocol × Funs.ai</h1>
+                        <p class="text-sm text-purple-200">KYC Verificável On-Chain</p>
+                    </div>
+                </div>
+                <a href="https://dashboard.annaprotocol.online" target="_blank" 
+                   class="px-4 py-2 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition">
+                    Acessar Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-4xl font-bold mb-4">Demo Interativa: KYC Real com ANNA</h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Simule o processo de KYC da Funs.ai e veja como cada decisão é registrada on-chain
+                com accountability total usando ANNA Protocol.
+            </p>
+        </div>
+
+        <!-- KYC Form -->
+        <div class="max-w-4xl mx-auto">
+            <div id="formSection" class="glass-effect rounded-2xl p-8 mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="fas fa-user-check text-purple-400"></i>
+                    Formulário de KYC - Funs.ai
+                </h3>
+                
+                <form id="kycForm" class="space-y-6">
+                    <!-- Nome -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Nome Completo</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Ex: Alice Johnson">
+                    </div>
+
+                    <!-- Idade -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Idade</label>
+                        <input type="number" id="age" name="age" required min="18" max="120"
+                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               placeholder="Ex: 28">
+                    </div>
+
+                    <!-- País -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">País</label>
+                        <select id="country" name="country" required
+                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <option value="">Selecione...</option>
+                            <option value="Brasil">Brasil</option>
+                            <option value="United States">United States</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Other">Outro</option>
+                        </select>
+                    </div>
+
+                    <!-- Tipo de Conta -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Tipo de Conta</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center p-4 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:border-purple-500 transition">
+                                <input type="radio" name="account_type" value="creator" checked class="mr-3">
+                                <div>
+                                    <div class="font-semibold">Creator</div>
+                                    <div class="text-sm text-gray-400">Criar conteúdo e NFTs</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:border-purple-500 transition">
+                                <input type="radio" name="account_type" value="user" class="mr-3">
+                                <div>
+                                    <div class="font-semibold">User</div>
+                                    <div class="text-sm text-gray-400">Consumir e interagir</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Upload Simulado -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-6 border-2 border-dashed border-gray-700 rounded-lg text-center cursor-pointer hover:border-purple-500 transition">
+                            <i class="fas fa-id-card text-4xl text-gray-600 mb-3"></i>
+                            <div class="text-sm text-gray-400">Documento (Simulado)</div>
+                            <div class="text-xs text-gray-600 mt-1">RG, CNH, Passaporte</div>
+                        </div>
+                        <div class="p-6 border-2 border-dashed border-gray-700 rounded-lg text-center cursor-pointer hover:border-purple-500 transition">
+                            <i class="fas fa-camera text-4xl text-gray-600 mb-3"></i>
+                            <div class="text-sm text-gray-400">Selfie (Simulado)</div>
+                            <div class="text-xs text-gray-600 mt-1">Verificação facial</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full py-4 gradient-bg rounded-lg font-bold text-lg hover:opacity-90 transition flex items-center justify-center gap-3">
+                        <i class="fas fa-paper-plane"></i>
+                        Processar KYC com ANNA
+                    </button>
+                </form>
+            </div>
+
+            <!-- Processing Section (Hidden initially) -->
+            <div id="processingSection" class="glass-effect rounded-2xl p-8 mb-8 hidden">
+                <h3 class="text-2xl font-bold mb-6 text-center">Processando KYC...</h3>
+                <div class="space-y-4">
+                    <div id="step1" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
+                        <div class="spinner"></div>
+                        <span>Analisando documento...</span>
+                    </div>
+                    <div id="step2" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
+                        <div class="spinner"></div>
+                        <span>Verificação facial em andamento...</span>
+                    </div>
+                    <div id="step3" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
+                        <div class="spinner"></div>
+                        <span>Checando listas PEP/Sanções...</span>
+                    </div>
+                    <div id="step4" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
+                        <div class="spinner"></div>
+                        <span>Criando attestation ANNA on-chain...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Section (Hidden initially) -->
+            <div id="resultSection" class="glass-effect rounded-2xl p-8 hidden">
+                <div id="successResult" class="hidden">
+                    <div class="text-center mb-8">
+                        <div class="success-checkmark mx-auto mb-4">
+                            <div class="check-icon">
+                                <span class="icon-line line-tip"></span>
+                                <span class="icon-line line-long"></span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-bold text-green-400 mb-2">KYC Aprovado!</h3>
+                        <p class="text-gray-400">Attestation criada com sucesso no ANNA Protocol</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <div class="text-sm text-gray-400 mb-1">Usuário</div>
+                            <div class="font-semibold" id="resultName">-</div>
+                        </div>
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <div class="text-sm text-gray-400 mb-1">Score de Confiança</div>
+                            <div class="font-semibold text-green-400" id="resultScore">-</div>
+                        </div>
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <div class="text-sm text-gray-400 mb-1">Badge Atribuído</div>
+                            <div class="font-semibold" id="resultBadge">-</div>
+                        </div>
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <div class="text-sm text-gray-400 mb-1">Attestation ID</div>
+                            <div class="font-mono text-xs" id="resultAttestationId">-</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-900/50 to-blue-900/50 p-6 rounded-lg mb-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-link text-2xl text-purple-400"></i>
+                            <div>
+                                <div class="font-semibold">Transaction Hash</div>
+                                <div class="text-sm text-gray-400">Prova imutável no Polygon Amoy</div>
+                            </div>
+                        </div>
+                        <div class="font-mono text-sm bg-gray-900 p-3 rounded break-all" id="resultTxHash">-</div>
+                        <a id="polygonScanLink" href="#" target="_blank" 
+                           class="inline-flex items-center gap-2 mt-3 text-purple-400 hover:text-purple-300">
+                            <i class="fas fa-external-link-alt"></i>
+                            Ver no PolygonScan
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <a id="dashboardLink" href="#" target="_blank"
+                           class="flex items-center justify-center gap-3 py-4 bg-purple-600 rounded-lg font-semibold hover:bg-purple-700 transition">
+                            <i class="fas fa-dashboard"></i>
+                            Ver no Dashboard
+                        </a>
+                        <a id="certificateLink" href="#" target="_blank"
+                           class="flex items-center justify-center gap-3 py-4 bg-blue-600 rounded-lg font-semibold hover:bg-blue-700 transition">
+                            <i class="fas fa-certificate"></i>
+                            Baixar Certificado
+                        </a>
+                    </div>
+                </div>
+
+                <div id="errorResult" class="hidden text-center">
+                    <i class="fas fa-exclamation-circle text-6xl text-red-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-red-400 mb-2">KYC Rejeitado</h3>
+                    <p class="text-gray-400" id="errorReason">-</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Guide -->
+        <div class="max-w-4xl mx-auto mt-16">
+            <div class="glass-effect rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="fas fa-code text-purple-400"></i>
+                    Integração no Seu Código
+                </h3>
+                
+                <div class="bg-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
+                    <pre class="text-green-400"># Instale o SDK
+pip install anna-protocol-sdk
+
+# No seu endpoint de KYC (FastAPI/Flask)
+<span class="text-blue-400">from</span> anna_protocol.client <span class="text-blue-400">import</span> ANNAClient, Reasoning, Metadata
+
+client = ANNAClient(
+    private_key=os.getenv(<span class="text-yellow-400">'PRIVATE_KEY'</span>),
+    network=<span class="text-yellow-400">'polygon-amoy'</span>
+)
+
+<span class="text-gray-500"># Após sua IA aprovar o KYC...</span>
+result = client.create_attestation(
+    content=<span class="text-yellow-400">f"KYC aprovado: {user_name}"</span>,
+    reasoning=reasoning_obj,
+    metadata=metadata_obj,
+    category=<span class="text-yellow-400">"socialfi_kyc"</span>
+)
+
+<span class="text-purple-400">print</span>(<span class="text-yellow-400">f"✅ TxHash: {result.tx_hash}"</span>)</pre>
+                </div>
+
+                <div class="mt-6 p-4 bg-blue-900/30 border border-blue-700 rounded-lg">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-info-circle text-blue-400 mt-1"></i>
+                        <div class="text-sm">
+                            <div class="font-semibold mb-1">Próximos Passos</div>
+                            <ol class="list-decimal list-inside space-y-1 text-gray-300">
+                                <li>Acesse o <a href="https://dashboard.annaprotocol.online" class="text-blue-400 hover:underline">Dashboard ANNA</a></li>
+                                <li>Registre sua IA (cria DID soulbound)</li>
+                                <li>Integre o SDK no seu backend</li>
+                                <li>Teste com 5 KYCs simulados</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>ANNA Protocol - Artificial Neural Network Accountability</p>
+            <p class="text-sm mt-2">Making AI decisions transparent and auditable</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/simulator.js"></script>
+</body>
+</html>
