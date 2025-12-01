@@ -173,14 +173,13 @@ class handler(BaseHTTPRequestHandler):
             }
         )
         
-        print("DEBUG: Calling create_attestation...", file=sys.stderr)
+        print("DEBUG: Calling submit_attestation_with_metadata...", file=sys.stderr)
         
-        # Criar attestation on-chain
-        result = client.submit_attestation(
+        # Criar attestation on-chain usando SDK 1.2.13
+        result = client.submit_attestation_with_metadata(
             content=f"Decisão KYC: Aprovada para {user_name}. Badge Verified {account_type.title()} atribuído.",
             reasoning=reasoning,
-            metadata=metadata,
-            category="socialfi_kyc"
+            metadata=metadata
         )
         
         print(f"DEBUG: Attestation created successfully! ID: {result.attestation_id}", file=sys.stderr)
