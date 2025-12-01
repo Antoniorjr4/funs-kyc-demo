@@ -1,5 +1,5 @@
 // Configuração
-const API_URL = 'https://funs-kyc-demo.vercel.app/'; // Substitua pelo URL real após deploy
+const API_URL = 'https://funs-kyc-demo.vercel.app/api/process_kyc';
 
 // Elementos do DOM
 const form = document.getElementById('kycForm');
