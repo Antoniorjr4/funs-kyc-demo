@@ -57,7 +57,7 @@ class handler(BaseHTTPRequestHandler):
                     'attestation_id': anna_result['attestation_id'],
                     'tx_hash': anna_result['tx_hash'],
                     'certificate_url': anna_result['certificate_url'],
-                    'dashboard_url': f"https://dashboard.annaprotocol.online/attestations/{anna_result['attestation_id']}"
+                    'dashboard_url': anna_result['dashboard_url']
                 }
             else:
                 response = {
@@ -187,8 +187,13 @@ class handler(BaseHTTPRequestHandler):
         
         print(f"DEBUG: Attestation created successfully! ID: {result.attestation_id}", file=sys.stderr)
         
+        # Garantir que IDs têm prefixo 0x
+        attestation_id = result.attestation_id if result.attestation_id.startswith('0x') else f"0x{result.attestation_id}"
+        tx_hash = result.tx_hash if result.tx_hash.startswith('0x') else f"0x{result.tx_hash}"
+        
         return {
-            'attestation_id': result.attestation_id,
-            'tx_hash': result.tx_hash,
-            'certificate_url': f"https://dashboard.annaprotocol.online/certificate/{result.attestation_id}"
+            'attestation_id': attestation_id,
+            'tx_hash': tx_hash,
+            'certificate_url': f"https://annaprotocol.com/verify?hash={attestation_id}",
+            'dashboard_url': f"https://dashboard.annaprotocol.online"
         }
