@@ -120,13 +120,13 @@ class handler(BaseHTTPRequestHandler):
         
         print("DEBUG: Initializing ANNA client...", file=sys.stderr)
         
-        # Inicializar cliente ANNA com endereços dos contratos
+        # Inicializar cliente ANNA com endereços corretos dos contratos
         client = ANNAClient(
             private_key=os.getenv('ANNA_PRIVATE_KEY'),
             network='polygon-amoy',
-            identity_contract='0x5e11B2Cc918d7FCaf9fbE11bFde63539ade23d36',
-            attestation_contract='0xbcD494612E43315a43E1f1b682C89BA6744ECF8f',
-            reputation_contract='0x46F2cc32A9373f3b52a777A536CB53E0cd261DE4'
+            identity_contract='0x8b9b5D3f698BE53Ae98162f6e013Bc9214bc7AF0',
+            attestation_contract='0x1a8Cf700B6bCBE4242f0Ad05235Ee18A8b752d68',
+            reputation_contract='0x1DAB71cF75e4c157fb5bC6Ba1973eBEF9bF78049'
         )
         
         print("DEBUG: Creating reasoning...", file=sys.stderr)

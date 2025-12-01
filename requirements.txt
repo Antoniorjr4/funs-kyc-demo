@@ -1,4 +1,4 @@
 anna-protocol-sdk==1.2.13
-web3==6.11.3
+web3==6.0.0
 python-dotenv==1.0.0
 setuptools>=65.0.0
