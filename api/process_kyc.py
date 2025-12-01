@@ -176,7 +176,7 @@ class handler(BaseHTTPRequestHandler):
         print("DEBUG: Calling create_attestation...", file=sys.stderr)
         
         # Criar attestation on-chain
-        result = client.create_attestation(
+        result = client.submit_attestation(
             content=f"Decisão KYC: Aprovada para {user_name}. Badge Verified {account_type.title()} atribuído.",
             reasoning=reasoning,
             metadata=metadata,
