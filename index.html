@@ -9,467 +9,525 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        body { font-family: 'Inter', sans-serif; }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .gradient-text { background: linear-gradient(135deg, #a78bfa 0%, #667eea 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .gold-border { border: 1px solid rgba(234, 179, 8, 0.3); box-shadow: 0 0 15px rgba(234, 179, 8, 0.1); }
+        
+        .fade-in { animation: fadeIn 0.5s ease-in forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        pre {
+            background: #000000;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .success-checkmark {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
-        }
-        
-        .success-checkmark .check-icon {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            border-radius: 50%;
-            box-sizing: content-box;
-            border: 4px solid #4ade80;
-        }
-        
-        .success-checkmark .check-icon::before {
-            top: 3px;
-            left: -2px;
-            width: 30px;
-            transform-origin: 100% 50%;
-            border-radius: 100px 0 0 100px;
-        }
-        
-        .success-checkmark .check-icon::after {
-            top: 0;
-            left: 30px;
-            width: 60px;
-            transform-origin: 0 50%;
-            border-radius: 0 100px 100px 0;
-            animation: rotate-circle 4.25s ease-in;
-        }
-        
-        .success-checkmark .check-icon::before,
-        .success-checkmark .check-icon::after {
-            content: '';
-            height: 100px;
-            position: absolute;
-            background: #1f2937;
-            transform: rotate(-45deg);
-        }
-        
-        .success-checkmark .check-icon .icon-line {
-            height: 5px;
-            background-color: #4ade80;
-            display: block;
-            border-radius: 2px;
-            position: absolute;
-            z-index: 10;
-        }
-        
-        .success-checkmark .check-icon .icon-line.line-tip {
-            top: 46px;
-            left: 14px;
-            width: 25px;
-            transform: rotate(45deg);
-            animation: icon-line-tip 0.75s;
-        }
-        
-        .success-checkmark .check-icon .icon-line.line-long {
-            top: 38px;
-            right: 8px;
-            width: 47px;
-            transform: rotate(-45deg);
-            animation: icon-line-long 0.75s;
-        }
-        
-        @keyframes icon-line-tip {
-            0% { width: 0; left: 1px; top: 19px; }
-            54% { width: 0; left: 1px; top: 19px; }
-            70% { width: 50px; left: -8px; top: 37px; }
-            84% { width: 17px; left: 21px; top: 48px; }
-            100% { width: 25px; left: 14px; top: 45px; }
-        }
-        
-        @keyframes icon-line-long {
-            0% { width: 0; right: 46px; top: 54px; }
-            65% { width: 0; right: 46px; top: 54px; }
-            84% { width: 55px; right: 0px; top: 35px; }
-            100% { width: 47px; right: 8px; top: 38px; }
-        }
+        .hidden { display: none; }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <!-- Header -->
-    <header class="gradient-bg py-6 shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <h1 class="text-3xl font-bold tracking-tight">ANNΛ Protocol × Funs.ai</h1>
-                </div>
-                <a href="https://dashboard.annaprotocol.online" target="_blank" 
-                   class="px-4 py-2 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition">
-                    Acessar Dashboard
-                </a>
+<body class="bg-gray-950 text-white min-h-screen flex flex-col">
+
+    <header class="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center font-bold text-white">Λ</div>
+                <h1 class="text-xl font-bold tracking-tight">ANNΛ <span class="text-gray-500 mx-2">×</span> Funs.ai</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openROIModal()" class="text-sm px-3 py-1.5 rounded border border-yellow-500/30 text-yellow-400 bg-yellow-500/10 hover:bg-yellow-500/20 transition">
+                    <i class="fas fa-chart-line mr-1"></i> <span class="hidden md:inline">ROI</span>
+                </button>
+                <a href="https://dashboard.annaprotocol.online" target="_blank" class="text-sm text-gray-400 hover:text-white transition">Dashboard</a>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-12">
-        <!-- Hero Section -->
-        <div class="text-center mb-12 fade-in">
-            <h2 class="text-4xl font-bold mb-4">Demo Interativa: KYC Real com ANNA</h2>
-            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                Simule o processo de KYC da Funs.ai e veja como cada decisão é registrada on-chain
-                com accountability total usando ANNA Protocol.
-            </p>
-        </div>
+    <main class="container mx-auto px-4 py-8 flex-grow">
 
-        <!-- KYC Form -->
-        <div class="max-w-4xl mx-auto">
-            <div id="formSection" class="glass-effect rounded-2xl p-8 mb-8">
-                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
-                    <i class="fas fa-user-check text-purple-400"></i>
-                    Formulário de KYC - Funs.ai
-                </h3>
+        <!-- LANDING SECTION -->
+        <div id="landingSection" class="fade-in" style="animation-delay: 0.1s;">
+            
+            <!-- Hero -->
+            <div class="text-center mb-16 mt-8">
+                <h2 class="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
+                    Compliance SocialFi <br>
+                    <span class="gradient-text">Verificável & Imutável</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+                    Simule como a Funs.ai pode automatizar KYC com 
+                    <span class="text-white font-semibold">accountability total</span>. 
+                    Sem caixas-pretas. Apenas matemática.
+                </p>
                 
-                <form id="kycForm" class="space-y-6">
-                    <!-- Nome -->
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Nome Completo</label>
-                        <input type="text" id="name" name="name" required
-                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                               placeholder="Ex: Alice Johnson">
-                    </div>
-
-                    <!-- Idade -->
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Idade</label>
-                        <input type="number" id="age" name="age" required min="18" max="120"
-                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                               placeholder="Ex: 28">
-                    </div>
-
-                    <!-- País -->
-                    <div>
-                        <label class="block text-sm font-medium mb-2">País</label>
-                        <select id="country" name="country" required
-                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                            <option value="">Selecione...</option>
-                            <option value="Brasil">Brasil</option>
-                            <option value="United States">United States</option>
-                            <option value="Portugal">Portugal</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Other">Outro</option>
-                        </select>
-                    </div>
-
-                    <!-- Tipo de Conta -->
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Tipo de Conta</label>
-                        <div class="grid grid-cols-2 gap-4">
-                            <label class="flex items-center p-4 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:border-purple-500 transition">
-                                <input type="radio" name="account_type" value="creator" checked class="mr-3">
-                                <div>
-                                    <div class="font-semibold">Creator</div>
-                                    <div class="text-sm text-gray-400">Criar conteúdo e NFTs</div>
-                                </div>
-                            </label>
-                            <label class="flex items-center p-4 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:border-purple-500 transition">
-                                <input type="radio" name="account_type" value="user" class="mr-3">
-                                <div>
-                                    <div class="font-semibold">User</div>
-                                    <div class="text-sm text-gray-400">Consumir e interagir</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Upload Simulado -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-6 border-2 border-dashed border-gray-700 rounded-lg text-center cursor-pointer hover:border-purple-500 transition">
-                            <i class="fas fa-id-card text-4xl text-gray-600 mb-3"></i>
-                            <div class="text-sm text-gray-400">Documento (Simulado)</div>
-                            <div class="text-xs text-gray-600 mt-1">RG, CNH, Passaporte</div>
-                        </div>
-                        <div class="p-6 border-2 border-dashed border-gray-700 rounded-lg text-center cursor-pointer hover:border-purple-500 transition">
-                            <i class="fas fa-camera text-4xl text-gray-600 mb-3"></i>
-                            <div class="text-sm text-gray-400">Selfie (Simulado)</div>
-                            <div class="text-xs text-gray-600 mt-1">Verificação facial</div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" 
-                            class="w-full py-4 gradient-bg rounded-lg font-bold text-lg hover:opacity-90 transition flex items-center justify-center gap-3">
-                        <i class="fas fa-paper-plane"></i>
-                        Processar KYC com ANNA
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
+                    <button onclick="document.getElementById('tutorial').scrollIntoView({behavior: 'smooth'})" 
+                            class="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-full font-semibold transition">
+                        <i class="fas fa-book mr-2"></i> Como Rodar
                     </button>
-                </form>
-            </div>
-
-            <!-- Processing Section (Hidden initially) -->
-            <div id="processingSection" class="glass-effect rounded-2xl p-8 mb-8 hidden">
-                <h3 class="text-2xl font-bold mb-6 text-center">Processando KYC...</h3>
-                <div class="space-y-4">
-                    <div id="step1" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
-                        <div class="spinner"></div>
-                        <span>Analisando documento...</span>
-                    </div>
-                    <div id="step2" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
-                        <div class="spinner"></div>
-                        <span>Verificação facial em andamento...</span>
-                    </div>
-                    <div id="step3" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
-                        <div class="spinner"></div>
-                        <span>Checando listas PEP/Sanções...</span>
-                    </div>
-                    <div id="step4" class="flex items-center gap-4 p-4 bg-gray-800 rounded-lg opacity-50">
-                        <div class="spinner"></div>
-                        <span>Criando attestation ANNA on-chain...</span>
-                    </div>
+                    <button onclick="startSimulation()" 
+                            class="group relative px-8 py-4 bg-white text-gray-900 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        Simular KYC Agora
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+                
+                <div class="max-w-2xl mx-auto bg-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/30 text-sm">
+                    <p class="text-gray-400">
+                        <i class="fas fa-info-circle text-purple-400 mr-2"></i>
+                        <strong class="text-white">Demo Pré-configurada:</strong> Carteira gerenciada (gas sponsored). 
+                        Não precisa Metamask ou POL para testar.
+                    </p>
                 </div>
             </div>
 
-            <!-- Result Section (Hidden initially) -->
-            <div id="resultSection" class="glass-effect rounded-2xl p-8 hidden">
-                <div id="successResult" class="hidden">
-                    <div class="text-center mb-8">
-                        <div class="success-checkmark mx-auto mb-4">
-                            <div class="check-icon">
-                                <span class="icon-line line-tip"></span>
-                                <span class="icon-line line-long"></span>
+            <!-- Economic Impact Box -->
+            <div class="max-w-4xl mx-auto mb-20">
+                <div class="glass-effect rounded-xl p-1 gold-border">
+                    <div class="bg-gray-900/80 rounded-lg p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-6 border-b border-gray-800 pb-4">
+                            <i class="fas fa-chart-line text-yellow-400 text-2xl"></i>
+                            <h3 class="text-xl font-bold text-white">IMPACTO ECONÔMICO: Funs.ai</h3>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-8 mb-6">
+                            <div class="space-y-3 opacity-60 hover:opacity-100 transition">
+                                <h4 class="font-semibold text-red-400 mb-2">❌ Método Tradicional (Manual)</h4>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex justify-between"><span>Prep. Documentação:</span> <span>$150-400/user</span></li>
+                                    <li class="flex justify-between"><span>Jurídico/Compliance:</span> <span>$500-1.000/hora</span></li>
+                                    <li class="flex justify-between font-medium text-white border-t border-gray-700 pt-1"><span>Custo Real:</span> <span>~$300-500/user</span></li>
+                                </ul>
+                                <p class="text-xs text-red-400 mt-2"><i class="fas fa-exclamation-triangle"></i> Risco: Multas $10k-$1M+</p>
+                            </div>
+
+                            <div class="space-y-3 relative">
+                                <div class="absolute -right-2 -top-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">RECOMENDADO</div>
+                                <h4 class="font-semibold text-green-400 mb-2">✅ Com ANNA Protocol</h4>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex justify-between"><span>Attestation On-chain:</span> <span>$0.50/user</span></li>
+                                    <li class="flex justify-between"><span>Auditoria (QR Code):</span> <span>5 segundos</span></li>
+                                    <li class="flex justify-between"><span>Redução de risco:</span> <span>&gt;95%</span></li>
+                                    <li class="flex justify-between font-medium text-white border-t border-gray-700 pt-1"><span>Total:</span> <span class="text-green-400">$0.50/user</span></li>
+                                </ul>
                             </div>
                         </div>
-                        <h3 class="text-3xl font-bold text-green-400 mb-2">KYC Aprovado!</h3>
-                        <p class="text-gray-400">Attestation criada com sucesso no ANNA Protocol</p>
-                    </div>
 
-                    <div class="grid grid-cols-2 gap-6 mb-8">
-                        <div class="bg-gray-800 p-6 rounded-lg">
-                            <div class="text-sm text-gray-400 mb-1">Usuário</div>
-                            <div class="font-semibold" id="resultName">-</div>
-                        </div>
-                        <div class="bg-gray-800 p-6 rounded-lg">
-                            <div class="text-sm text-gray-400 mb-1">Score de Confiança</div>
-                            <div class="font-semibold text-green-400" id="resultScore">-</div>
-                        </div>
-                        <div class="bg-gray-800 p-6 rounded-lg">
-                            <div class="text-sm text-gray-400 mb-1">Badge Atribuído</div>
-                            <div class="font-semibold" id="resultBadge">-</div>
-                        </div>
-                        <div class="bg-gray-800 p-6 rounded-lg">
-                            <div class="text-sm text-gray-400 mb-1">Attestation ID</div>
-                            <div class="font-mono text-xs" id="resultAttestationId">-</div>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-purple-900/50 to-blue-900/50 p-6 rounded-lg mb-6">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i class="fas fa-link text-2xl text-purple-400"></i>
-                            <div>
-                                <div class="font-semibold">Transaction Hash</div>
-                                <div class="text-sm text-gray-400">Prova imutável no Polygon Amoy</div>
+                        <div class="bg-gradient-to-r from-gray-800 to-gray-900 p-4 rounded-lg border border-gray-700 text-center">
+                            <h5 class="text-gray-400 text-sm mb-1">📊 PROJEÇÃO ANUAL (10k Creators)</h5>
+                            <div class="text-sm text-gray-400 mb-1">Economia média: <span class="text-yellow-400 font-bold">$399.50</span> × 10.000</div>
+                            <div class="text-3xl font-bold text-white mb-1">
+                                <span class="text-green-400">$3.995 Milhões</span> <span class="text-lg font-normal text-gray-500">economizados/ano</span>
                             </div>
+                            <div class="text-xs text-gray-500">ROI de compliance: <span class="text-green-400">~80.000%</span> (Investimento $5k → Economia $4M)</div>
                         </div>
-                        <div class="font-mono text-sm bg-gray-900 p-3 rounded break-all" id="resultTxHash">-</div>
-                        <a id="polygonScanLink" href="#" target="_blank" 
-                           class="inline-flex items-center gap-2 mt-3 text-purple-400 hover:text-purple-300">
-                            <i class="fas fa-external-link-alt"></i>
-                            Ver no PolygonScan
-                        </a>
                     </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <a id="dashboardLink" href="#" target="_blank"
-                           class="flex items-center justify-center gap-3 py-4 bg-purple-600 rounded-lg font-semibold hover:bg-purple-700 transition">
-                            <i class="fas fa-dashboard"></i>
-                            Ver no Dashboard
-                        </a>
-                        <a id="certificateLink" href="#" target="_blank"
-                           class="flex items-center justify-center gap-3 py-4 bg-blue-600 rounded-lg font-semibold hover:bg-blue-700 transition">
-                            <i class="fas fa-certificate"></i>
-                            Baixar Certificado
-                        </a>
-                    </div>
-                </div>
-                <!-- CARD DE ECONOMIA - Aparece após KYC aprovado -->
-<div id="economyCard" class="hidden mt-12 max-w-4xl mx-auto">
-  <div class="bg-gradient-to-br from-purple-900/40 via-purple-800/30 to-black border border-purple-600 rounded-2xl p-8 backdrop-blur-sm shadow-2xl">
-    
-    <h2 class="text-3xl font-bold text-white text-center mb-8 tracking-tight">
-      ECONOMIA EM COMPLIANCE & AUDITORIA
-    </h2>
-
-    <div class="grid md:grid-cols-2 gap-8 mb-8">
-      <!-- Método Tradicional -->
-      <div class="bg-red-900/30 border border-red-700 rounded-xl p-6">
-        <h3 class="text-xl font-bold text-red-400 mb-4">Método Tradicional (Auditoria Manual)</h3>
-        <ul class="space-y-3 text-gray-300">
-          <li class="flex items-start">
-            <span class="text-red-400 mr-3">└─</span>
-            <span>Preparação de documentação: <strong>$150–400</strong>/usuário</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-red-400 mr-3">└─</span>
-            <span>Consultoria jurídica/compliance: <strong>$500–1.000</strong>/hora</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-red-400 mr-3">└─</span>
-            <span>Custo médio por usuário auditado: <strong>$300–500</strong></span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-red-400 mr-3">└─</span>
-            <span class="text-red-300 font-semibold">Risco: Multas de $10k a $1M+ por incidente</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Com ANNA Protocol -->
-      <div class="bg-green-900/30 border border-green-600 rounded-xl p-6 ring-2 ring-green-500/50">
-        <h3 class="text-xl font-bold text-green-400 mb-4">Com ANNA Protocol (Prova Criptográfica)</h3>
-        <ul class="space-y-3 text-gray-300">
-          <li class="flex items-start">
-            <span class="text-green-400 mr-3">└─</span>
-            <span>Attestation na blockchain: <strong>$0.50</strong>/usuário</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-green-400 mr-3">└─</span>
-            <span>Auditoria instantânea via QR code</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-green-400 mr-3">└─</span>
-            <span>Redução de risco regulatório: <strong>>95%</strong></span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-green-400 mr-3">└─</span>
-            <strong class="text-green-300">Total: $0.50 por usuário</strong>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- PROJEÇÃO FUNS.AI -->
-    <div class="bg-gradient-to-r from-purple-700 to-pink-700 rounded-xl p-8 text-center">
-      <h3 class="text-2xl font-bold text-white mb-4 tracking-wider">
-        PROJEÇÃO ANUAL FUNS.AI
-      </h3>
-      <div class="text-5xl font-black text-white mb-2">
-        $3.995 milhões
-      </div>
-      <p class="text-xl text-gray-200 mb-4">
-        economizados por ano com 10.000 creators verificados
-      </p>
-      <div class="text-3xl font-bold text-yellow-400">
-        ROI de compliance: ~80.000%
-      </div>
-      <p class="text-lg text-gray-300 mt-3">
-        (Investimento de $5k → Economia de $4M+)
-      </p>
-    </div>
-
-    <p class="text-center text-gray-400 text-sm mt-6 italic">
-      Números baseados em auditorias reais de fintechs na América Latina e Europa (2025)
-    </p>
-  </div>
-</div>
-
-                <div id="errorResult" class="hidden text-center">
-                    <i class="fas fa-exclamation-circle text-6xl text-red-400 mb-4"></i>
-                    <h3 class="text-2xl font-bold text-red-400 mb-2">KYC Rejeitado</h3>
-                    <p class="text-gray-400" id="errorReason">-</p>
                 </div>
             </div>
-        </div>
 
-        <!-- Integration Guide -->
-        <div class="max-w-4xl mx-auto mt-16">
-            <div class="glass-effect rounded-2xl p-8">
-                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
-                    <i class="fas fa-code text-purple-400"></i>
-                    Integração no Seu Código
+            <!-- Case Alice -->
+            <div class="max-w-5xl mx-auto mb-20">
+                <h3 class="text-3xl font-bold text-center mb-10">
+                    📖 Caso de Uso: <span class="text-purple-400">Alice Johnson</span>
                 </h3>
                 
-                <div class="bg-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
-                    <pre class="text-green-400"># Instale o SDK
-pip install anna-protocol-sdk
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-900/20 rounded-xl p-6 border border-blue-500/30">
+                        <h4 class="text-lg font-bold mb-3 text-blue-300">👤 Usuário Fictício</h4>
+                        <p class="text-gray-300 text-sm mb-3">
+                            <strong class="text-white">Alice Johnson</strong>, 28 anos, de São Paulo, quer se cadastrar como 
+                            <span class="text-purple-400 font-semibold">"criadora"</span> na Funs.ai.
+                        </p>
+                        <p class="text-gray-400 text-xs">
+                            Envia RG + selfie para ganhar badges e acessar features premium (ex: mintar NFTs).
+                        </p>
+                    </div>
 
-# No seu endpoint de KYC (FastAPI/Flask)
-<span class="text-blue-400">from</span> anna_protocol.client <span class="text-blue-400">import</span> ANNAClient, Reasoning, Metadata
-
-client = ANNAClient(
-    private_key=os.getenv(<span class="text-yellow-400">'PRIVATE_KEY'</span>),
-    network=<span class="text-yellow-400">'polygon-amoy'</span>
-)
-
-<span class="text-gray-500"># Após sua IA aprovar o KYC...</span>
-result = client.create_attestation(
-    content=<span class="text-yellow-400">f"KYC aprovado: {user_name}"</span>,
-    reasoning=reasoning_obj,
-    metadata=metadata_obj,
-    category=<span class="text-yellow-400">"socialfi_kyc"</span>
-)
-
-<span class="text-purple-400">print</span>(<span class="text-yellow-400">f"✅ TxHash: {result.tx_hash}"</span>)</pre>
+                    <div class="bg-red-900/20 rounded-xl p-6 border border-red-500/30">
+                        <h4 class="text-lg font-bold mb-3 text-red-300">⚠️ Desafio sem ANNA</h4>
+                        <p class="text-gray-300 text-sm mb-3">
+                            IA aprova/rejeita baseado em análise facial + dados biográficos, 
+                            <span class="text-red-400 font-semibold">mas sem rastro auditável</span>.
+                        </p>
+                        <p class="text-gray-400 text-xs">
+                            Em auditoria, é uma <strong class="text-red-400">"caixa-preta"</strong>.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="mt-6 p-4 bg-blue-900/30 border border-blue-700 rounded-lg">
-                    <div class="flex items-start gap-3">
-                        <i class="fas fa-info-circle text-blue-400 mt-1"></i>
-                        <div class="text-sm">
-                            <div class="font-semibold mb-1">Próximos Passos</div>
-                            <ol class="list-decimal list-inside space-y-1 text-gray-300">
-                                <li>Acesse o <a href="https://dashboard.annaprotocol.online" class="text-blue-400 hover:underline">Dashboard ANNA</a></li>
-                                <li>Registre sua IA (cria DID soulbound)</li>
-                                <li>Integre o SDK no seu backend</li>
-                                <li>Teste com 5 KYCs simulados</li>
-                            </ol>
+                <div class="bg-green-900/20 rounded-xl p-6 border-2 border-green-500/50">
+                    <h4 class="text-xl font-bold mb-3 text-green-300">✅ Com ANNA Protocol</h4>
+                    <p class="text-gray-300 text-sm">
+                        A decisão da IA vira uma <strong class="text-green-400">attestation on-chain</strong> com raciocínio estruturado, 
+                        metadados do usuário e txHash. Qualquer um (regulador, investidor ou Alice) verifica em segundos via QR code.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Flow -->
+            <div class="max-w-5xl mx-auto mb-20">
+                <h3 class="text-3xl font-bold text-center mb-10">
+                    ⚡ O que acontece em seguida <span class="gradient-text">(Automático)</span>
+                </h3>
+                
+                <div class="relative">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-800 -z-10 -translate-y-1/2"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
+                        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                            <div class="w-12 h-12 bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-400 border border-purple-500/30">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 text-sm">Frontend</h4>
+                            <p class="text-xs text-gray-400">Funs.ai app. Usuário envia docs.</p>
+                        </div>
+
+                        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg relative">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-xs px-2 py-0.5 rounded text-white font-mono">SDK</div>
+                            <div class="w-12 h-12 bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 text-sm">Backend IA</h4>
+                            <p class="text-xs text-gray-400">Chama <code class="text-purple-400">create_attestation()</code></p>
+                            <p class="text-[10px] text-purple-300 mt-1">~10s no Amoy</p>
+                        </div>
+
+                        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                            <div class="w-12 h-12 bg-indigo-900/50 rounded-full flex items-center justify-center mx-auto mb-4 text-indigo-400 border border-indigo-500/30">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 text-sm">Blockchain</h4>
+                            <p class="text-xs text-gray-400">Evento <code class="text-blue-400">AttestationSubmitted</code></p>
+                        </div>
+
+                        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                            <div class="w-12 h-12 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4 text-green-400 border border-green-500/30">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 text-sm">Verifier 24/7</h4>
+                            <p class="text-xs text-gray-400">Valida raciocínio. Score: 92/100</p>
+                            <p class="text-[10px] text-green-300 mt-1">~30s</p>
+                        </div>
+
+                        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
+                            <div class="w-12 h-12 bg-yellow-900/50 rounded-full flex items-center justify-center mx-auto mb-4 text-yellow-400 border border-yellow-500/30">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 text-sm">Resultado</h4>
+                            <p class="text-xs text-gray-400">Attestation <span class="text-yellow-400 font-bold">Verified</span>. Auditável.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Tutorial -->
+            <div id="tutorial" class="max-w-5xl mx-auto mb-20">
+                <div class="glass-effect rounded-xl p-8 border-t-4 border-purple-500">
+                    <h3 class="text-3xl font-bold text-center mb-10">
+                        📚 Como Rodar Esta Simulação
+                    </h3>
+
+                    <div class="space-y-6">
+                        <!-- Step 1 -->
+                        <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+                            <h4 class="text-xl font-bold mb-3 text-purple-300">1️⃣ Carteira Demo (Pré-configurada)</h4>
+                            <p class="text-gray-300 text-sm mb-3">
+                                Esta demo já possui uma carteira configurada. Você não precisa fazer nada!
+                            </p>
+                            <div class="bg-purple-900/20 rounded-lg p-3 border border-purple-500/30">
+                                <p class="text-xs text-purple-200 mb-2"><strong>Opção Alternativa:</strong> Quer testar com sua carteira?</p>
+                                <ul class="text-xs text-gray-300 space-y-1 ml-4">
+                                    <li>• Crie conta Metamask (só testnet)</li>
+                                    <li>• <a href="https://faucet.polygon.technology" target="_blank" class="text-blue-400 hover:underline">Faucet Polygon</a> → 0.5 POL</li>
+                                    <li>• Ou me envie o endereço!</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+                            <h4 class="text-xl font-bold mb-3 text-purple-300">2️⃣ Registre Seu Agente (Opcional)</h4>
+                            <p class="text-gray-300 text-sm mb-2">Se usar sua carteira:</p>
+                            <ul class="text-sm text-gray-400 space-y-1 ml-4">
+                                <li>• Acesse <a href="https://dashboard.annaprotocol.online" target="_blank" class="text-blue-400 hover:underline">dashboard.annaprotocol.online</a></li>
+                                <li>• Conecte Metamask e registre</li>
+                            </ul>
+                            <div class="bg-gray-950/50 rounded-lg p-3 mt-3 font-mono text-xs text-purple-300">
+                                Agent #X<br/>
+                                did:anna:0x[seu_endereço]
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+                            <h4 class="text-xl font-bold mb-3 text-purple-300">3️⃣ Private Key (Se usar sua carteira)</h4>
+                            <p class="text-sm text-gray-400">Configure no código para registrar processos.</p>
+                            <p class="text-xs text-yellow-300 mt-2">⚠️ Para esta demo pública, use a carteira pré-configurada!</p>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="bg-gray-900/50 rounded-xl p-6 border border-green-500/30">
+                            <h4 class="text-xl font-bold mb-3 text-green-300">4️⃣ Simulando o KYC</h4>
+                            <button onclick="startSimulation()" 
+                                    class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full mb-3 transition shadow-lg">
+                                🚀 Ir para o Simulador
+                            </button>
+                            <div class="text-xs text-gray-400 space-y-1">
+                                <p>• Preencha dados simulados</p>
+                                <p>• Clique "Processar KYC com ANNA"</p>
+                                <p>• Aguarde ~30s</p>
+                                <p>• Veja "KYC Aprovado!" com hashes</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="bg-gray-900/50 rounded-xl p-6 border border-blue-500/30">
+                            <h4 class="text-xl font-bold mb-3 text-blue-300">5️⃣ Visualização</h4>
+                            <ul class="text-sm text-gray-300 space-y-2 ml-4">
+                                <li>• <strong class="text-blue-400">"Visualizar Attestation"</strong> → Dados públicos + QR code</li>
+                                <li>• <strong class="text-purple-400">"Ver no Dashboard"</strong> → Dados completos</li>
+                                <li>• Escanear QR code → Verificar autenticidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Code -->
+            <div class="max-w-5xl mx-auto mb-20">
+                <h3 class="text-3xl font-bold text-center mb-10">
+                    💻 Integração Real <span class="gradient-text">(3 Linhas + Setup)</span>
+                </h3>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                        <h4 class="text-lg font-bold mb-3 text-purple-300">📦 Instalação</h4>
+                        <pre class="text-green-400"><code>pip install anna-protocol-sdk</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                        <h4 class="text-lg font-bold mb-3 text-purple-300">🔑 Configurar .env</h4>
+                        <pre class="text-gray-300"><code>PRIVATE_KEY=0xSuaChaveDaWalletDaIA  # Wallet dedicada</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                        <h4 class="text-lg font-bold mb-3 text-purple-300">🐍 Código Python</h4>
+                        <pre class="text-xs text-gray-300 overflow-x-auto"><code><span class="text-purple-400">from</span> anna_protocol.client <span class="text-purple-400">import</span> ANNAClient, Reasoning, ReasoningStep, Metadata
+<span class="text-purple-400">import</span> os
+<span class="text-purple-400">from</span> dotenv <span class="text-purple-400">import</span> load_dotenv
+
+load_dotenv()
+client = ANNAClient(private_key=os.getenv(<span class="text-green-400">'PRIVATE_KEY'</span>), network=<span class="text-green-400">'polygon-amoy'</span>)
+
+<span class="text-gray-500"># Raciocínio da IA da Funs.ai</span>
+reasoning = Reasoning(
+    input=<span class="text-green-400">"KYC para Alice Silva: RG + selfie (match 97%)"</span>,
+    reasoning_steps=[
+        ReasoningStep(<span class="text-orange-400">1</span>, <span class="text-green-400">"Análise biométrica"</span>, <span class="text-green-400">"Selfie match: 97% com RG."</span>),
+        ReasoningStep(<span class="text-orange-400">2</span>, <span class="text-green-400">"Verificação docs"</span>, <span class="text-green-400">"RG válido (SP 2023)."</span>),
+        ReasoningStep(<span class="text-orange-400">3</span>, <span class="text-green-400">"Risco SocialFi"</span>, <span class="text-green-400">"Sem hits OFAC/PEP."</span>)
+    ],
+    conclusion=<span class="text-green-400">"Aprovar KYC. Badge 'Verified Creator'."</span>,
+    confidence=<span class="text-orange-400">0.95</span>
+)
+
+metadata = Metadata(
+    external_id=<span class="text-green-400">"FUNS-KYC-2025-001"</span>,
+    document_type=<span class="text-green-400">"socialfi_creator_onboarding"</span>,
+    client_name=<span class="text-green-400">"Alice Silva"</span>,
+    custom_fields={<span class="text-green-400">"badge"</span>: <span class="text-green-400">"Verified Creator"</span>, <span class="text-green-400">"risk"</span>: <span class="text-orange-400">0.05</span>}
+)
+
+result = client.create_attestation(
+    content=<span class="text-green-400">"KYC aprovado: Alice Silva"</span>,
+    reasoning=reasoning,
+    metadata=metadata,
+    category=<span class="text-green-400">"socialfi_kyc"</span>
+)
+
+<span class="text-purple-400">print</span>(<span class="text-green-400">f"✅ ID: {result.attestation_id} | Tx: {result.tx_hash}"</span>)</code></pre>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-green-900/20 to-blue-900/20 rounded-xl p-6 border-2 border-green-500/50">
+                        <h4 class="text-lg font-bold mb-3 text-green-300">✅ Por Que Funciona?</h4>
+                        <ul class="text-sm text-gray-300 space-y-2">
+                            <li>• <strong>Zero Retrabalho:</strong> Integra no fluxo existente (IA → DB → ANNA)</li>
+                            <li>• <strong>Compliance Bulletproof:</strong> Prova semântica de "por quê"</li>
+                            <li>• <strong>Custo:</strong> ~$0.05 por KYC em mainnet</li>
+                            <li>• <strong>Segurança:</strong> EIP-712 + verifier independente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verifier Flow -->
+            <div class="max-w-4xl mx-auto mb-20">
+                <h3 class="text-3xl font-bold text-center mb-10">
+                    🤖 Verifier Flow <span class="gradient-text">(Nosso Lado)</span>
+                </h3>
+                
+                <div class="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-server text-purple-400 mt-1"></i>
+                            <p>Roda <strong>24/7</strong> em nodes dedicados. Escuta blockchain → valida → aprova on-chain.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-shield-alt text-blue-400 mt-1"></i>
+                            <p><strong>Tier 1:</strong> Rule-based (schema + anti-jailbreak). <strong>Tier 2 (Q1 2026):</strong> LLM consensus.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                            <p><strong>Você não gerencia:</strong> Nós cuidamos. Logs via eventos blockchain.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Why This Matters -->
+            <div class="max-w-5xl mx-auto mb-20">
+                <h3 class="text-3xl font-bold text-center mb-10">
+                    🎯 Por Que a <span class="text-blue-400">Funs.ai</span> Precisa Disso?
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-purple-500/30">
+                        <div class="text-4xl mb-4">🛡️</div>
+                        <h4 class="text-lg font-bold mb-2 text-purple-300">Compliance</h4>
+                        <p class="text-sm text-gray-400">CVM e SEC exigem prova de "por quê" a IA decidiu.</p>
+                    </div>
+
+                    <div class="bg-gray-900 p-6 rounded-xl border border-blue-500/30">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <h4 class="text-lg font-bold mb-2 text-blue-300">SocialFi</h4>
+                        <p class="text-sm text-gray-400">Badges NFTs + reduz fraudes (sybil attacks).</p>
+                    </div>
+
+                    <div class="bg-gray-900 p-6 rounded-xl border border-green-500/30">
+                        <div class="text-4xl mb-4">💰</div>
+                        <h4 class="text-lg font-bold mb-2 text-green-300">Economia</h4>
+                        <p class="text-sm text-gray-400">$0.05/KYC. Escala para milhões.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-yellow-900/20 to-orange-900/20 rounded-xl p-6 border-2 border-yellow-500/40 text-center">
+                    <p class="text-gray-300">
+                        <span class="text-yellow-400 font-bold">📜 Em 2025:</span> Com AI Act (UE) e regras de IA (Brasil), 
+                        plataformas precisam disso para atrair VCs.
+                        <br/><br/>
+                        <span class="gradient-text text-xl font-bold">ANNA transforma KYC de "risco" em "diferencial competitivo".</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="text-center py-12">
+                <button onclick="startSimulation()" 
+                        class="group relative px-12 py-5 bg-white text-gray-900 rounded-full font-bold text-xl hover:bg-gray-100 transition shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                    🚀 Começar Simulação Agora
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+
         </div>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="mt-20 py-8 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center text-gray-400">
-            <p>ANNA Protocol - Artificial Neural Network Accountability</p>
-            <p class="text-sm mt-2">Making AI decisions transparent and auditable</p>
+    <footer class="mt-auto py-8 border-t border-gray-900 bg-black/20">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p class="mb-2">ANNA Protocol - Artificial Neural Network Accountability</p>
+            <p>Demo v2.0 • Powered by Polygon Amoy • <a href="https://annaprotocol.com" class="text-purple-400 hover:underline">annaprotocol.com</a></p>
         </div>
     </footer>
 
-    <script src="js/simulator.js"></script>
+    <!-- ROI Modal -->
+    <div id="roiModal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 rounded-2xl p-8 max-w-3xl w-full border border-purple-500 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeROIModal()" class="float-right text-gray-400 hover:text-white text-2xl font-bold">×</button>
+            
+            <div class="clear-both pt-4">
+                <h2 class="text-3xl font-bold text-center mb-8 gradient-text">
+                    💰 IMPACTO ECONÔMICO COMPLETO
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-red-900/20 rounded-xl p-5 border border-red-500/50">
+                        <h3 class="text-lg font-bold mb-3 text-red-300">❌ Tradicional</h3>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>├─ Documentação: <strong>$150-400/user</strong></li>
+                            <li>├─ Jurídico: <strong>$500-1.000/hora</strong></li>
+                            <li>├─ Custo médio: <strong>$300-500/user</strong></li>
+                            <li>└─ Risco: <strong class="text-red-400">Multas $10k-$1M+</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-900/20 rounded-xl p-5 border border-green-500/50">
+                        <h3 class="text-lg font-bold mb-3 text-green-300">✅ Com ANNA</h3>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>├─ Attestation: <strong class="text-green-400">$0.50/user</strong></li>
+                            <li>├─ Auditoria: <strong>5 segundos</strong></li>
+                            <li>├─ Risco: <strong class="text-green-400">Redução &gt;95%</strong></li>
+                            <li>└─ Total: <strong class="text-green-400 text-lg">$0.50</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-6 border border-purple-500/50 text-center">
+                    <h3 class="text-xl font-bold mb-4 text-purple-300">📊 PROJEÇÃO ANUAL FUNS.AI</h3>
+                    <div class="text-sm text-gray-400 mb-2">10.000 creators auditados/ano</div>
+                    <div class="text-lg text-gray-300 mb-3">Economia: <span class="text-yellow-400 font-bold">$399.50</span> × 10.000</div>
+                    <div class="text-4xl font-black bg-gradient-to-r from-green-400 to-blue-400 text-transparent bg-clip-text mb-2">
+                        $3.995 milhões/ano
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        ROI: <span class="text-green-400 font-bold">~80.000%</span> (Invest $5k → Economia $4M)
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <p class="italic text-gray-300 text-sm">
+                        "Com ANNA, provar compliance custa menos que o café do auditor."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startSimulation() {
+            window.location.href = 'simulator.html';
+        }
+
+        function openROIModal() {
+            document.getElementById('roiModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeROIModal() {
+            document.getElementById('roiModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeROIModal();
+        });
+
+        document.getElementById('roiModal').addEventListener('click', (e) => {
+            if (e.target.id === 'roiModal') closeROIModal();
+        });
+    </script>
 </body>
 </html>
