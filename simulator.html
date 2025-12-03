@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANNA Protocol × Funs.ai - Simulador KYC</title>
+    <title>ANNA Protocol × Funs.ai - KYC Simulator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -65,15 +65,15 @@
                         onclick="window.location.href='index.html'"
                         class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-all border border-white/30">
                         <i class="fas fa-arrow-left"></i>
-                        <span class="hidden sm:inline">Voltar</span>
+                        <span class="hidden sm:inline">Back</span>
                     </button>
-                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight">ANNΛ × Funs.ai | Simulador</h1>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight">ANNΛ × Funs.ai | Simulator</h1>
                 </div>
                 <div class="flex items-center gap-3">
                     <button 
                         onclick="openROIModal()"
                         class="btn-roi bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold px-4 py-2 rounded-full text-sm transition-all">
-                        💰 <span class="hidden sm:inline">Impacto</span>
+                        Impact
                     </button>
                     <a href="https://dashboard.annaprotocol.online" target="_blank" 
                        class="px-4 py-2 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition text-sm md:text-base">
@@ -88,24 +88,24 @@
     <main class="container mx-auto px-4 py-8 md:py-12">
         <!-- Hero Section -->
         <div class="text-center mb-8 md:mb-12 fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">🚀 Simulador de KYC</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">KYC Simulator</h2>
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                Simule o processo de KYC da Funs.ai e veja a attestation sendo criada na blockchain em tempo real.
+                Simulate the Funs.ai KYC process and watch an attestation being created on-chain in real time.
             </p>
         </div>
 
         <!-- KYC Form -->
         <div class="max-w-4xl mx-auto">
             <div id="formSection" class="glass-effect rounded-2xl p-6 md:p-8 mb-8">
-                <h3 class="text-2xl font-bold mb-6 text-center">Preencha os Dados do Usuário</h3>
+                <h3 class="text-2xl font-bold mb-6 text-center">Enter User Information</h3>
                 
                 <form id="kycForm" class="space-y-6">
-                    <!-- Nome -->
+                    <!-- Full Name -->
                     <div>
-                        <label class="block text-sm font-medium mb-2">Nome Completo</label>
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
                         <input type="text" id="userName" required
                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
-                               placeholder="Ex: Maria Silva">
+                               placeholder="e.g. Maria Silva">
                     </div>
 
                     <!-- Email -->
@@ -116,24 +116,24 @@
                                placeholder="maria@email.com">
                     </div>
 
-                    <!-- Idade -->
+                    <!-- Age & Country -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Idade</label>
+                            <label class="block text-sm font-medium mb-2">Age</label>
                             <input type="number" id="userAge" required min="18" max="120"
                                    class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
                                    placeholder="25">
                         </div>
 
-                        <!-- País -->
+                        <!-- Country -->
                         <div>
-                            <label class="block text-sm font-medium mb-2">País</label>
+                            <label class="block text-sm font-medium mb-2">Country</label>
                             <select id="userCountry" required
                                     class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition">
-                                <option value="Brasil">Brasil</option>
-                                <option value="USA">Estados Unidos</option>
+                                <option value="Brazil">Brazil</option>
+                                <option value="USA">United States</option>
                                 <option value="Portugal">Portugal</option>
-                                <option value="Outro">Outro</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                     <!-- Submit Button -->
                     <button type="submit" 
                             class="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg font-bold text-lg transition-all transform hover:scale-[1.02] shadow-lg">
-                        🚀 Processar KYC com ANNA
+                        Process KYC with ANNA
                     </button>
                 </form>
             </div>
@@ -149,53 +149,50 @@
             <!-- Loading Section -->
             <div id="loadingSection" class="glass-effect rounded-2xl p-8 text-center hidden">
                 <div class="spinner mx-auto mb-4"></div>
-                <h3 class="text-xl font-bold mb-2">Processando KYC...</h3>
-                <p class="text-gray-400">Criando attestation na blockchain</p>
+                <h3 class="text-xl font-bold mb-2">Processing KYC...</h3>
+                <p class="text-gray-400">Creating attestation on the blockchain</p>
                 <div class="mt-6 space-y-2 text-sm text-left max-w-md mx-auto">
                     <div class="flex items-center gap-2 text-gray-300">
                         <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                        <span>Analisando documentos...</span>
+                        <span>Analyzing documents...</span>
                     </div>
                     <div class="flex items-center gap-2 text-gray-300">
                         <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                        <span>Gerando raciocínio da IA...</span>
+                        <span>Generating AI reasoning...</span>
                     </div>
                     <div class="flex items-center gap-2 text-gray-300">
                         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span>Registrando na blockchain...</span>
+                        <span>Registering on-chain...</span>
                     </div>
                 </div>
             </div>
 
             <!-- Success Section -->
             <div id="successSection" class="glass-effect rounded-2xl p-8 text-center hidden fade-in">
-                <div class="text-6xl mb-4">✅</div>
-                <h3 class="text-3xl font-bold mb-4 text-green-400">KYC Aprovado!</h3>
-                <p class="text-xl text-gray-300 mb-8">Attestation criada com sucesso no ANNA Protocol</p>
+                <div class="text-6xl mb-4">Approved</div>
+                <h3 class="text-3xl font-bold mb-4 text-green-400">KYC Approved!</h3>
+                <p class="text-xl text-gray-300 mb-8">Attestation successfully created on the ANNA Protocol</p>
                 
                 <!-- Results -->
                 <div id="resultsContainer" class="space-y-4 mb-8">
-                    <!-- Será preenchido via JavaScript -->
+                    <!-- Filled dynamically by JavaScript -->
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="flex flex-col md:flex-row gap-4 justify-center">
                     <a id="verifyLink" target="_blank"
                        class="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-all inline-flex items-center justify-center gap-2">
-                        <i class="fas fa-external-link-alt"></i>
-                        Visualizar Attestation
+                        View Attestation
                     </a>
                     
                     <a href="https://dashboard.annaprotocol.online" target="_blank"
                        class="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition-all inline-flex items-center justify-center gap-2">
-                        <i class="fas fa-chart-line"></i>
-                        Ver no Dashboard
+                        View in Dashboard
                     </a>
                     
                     <button onclick="resetForm()"
                             class="px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-all inline-flex items-center justify-center gap-2">
-                        <i class="fas fa-redo"></i>
-                        Gerar Outro KYC
+                        Generate Another KYC
                     </button>
                 </div>
             </div>
@@ -211,29 +208,29 @@
             <!-- Content -->
             <div class="clear-both pt-4">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text">
-                    💰 ECONOMIA EM COMPLIANCE
+                    COMPLIANCE SAVINGS
                 </h2>
 
                 <!-- Comparison Grid -->
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <!-- Traditional -->
                     <div class="bg-red-900/20 rounded-xl p-6 border-2 border-red-500/50">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-red-300">❌ Método Tradicional</h3>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-red-300">Traditional Method</h3>
                         <ul class="space-y-2 text-sm md:text-base text-gray-300">
-                            <li>• Documentação: <strong class="text-red-400">$150-400/user</strong></li>
-                            <li>• Consultoria: <strong class="text-red-400">$500-1.000/hora</strong></li>
-                            <li>• Custo médio: <strong class="text-red-400">$300-500/user</strong></li>
-                            <li>• Risco: <strong class="text-red-400">Multas $10k-$1M+</strong></li>
+                            <li>• Documentation: <strong class="text-red-400">$150-400/user</strong></li>
+                            <li>• Consulting: <strong class="text-red-400">$500-1,000/hour</strong></li>
+                            <li>• Avg Cost: <strong class="text-red-400">$300-500/user</strong></li>
+                            <li>• Risk: <strong class="text-red-400">Fines $10k-$1M+</strong></li>
                         </ul>
                     </div>
 
                     <!-- With ANNA -->
                     <div class="bg-green-900/20 rounded-xl p-6 border-2 border-green-500/50">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-300">✅ Com ANNA Protocol</h3>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-green-300">With ANNA Protocol</h3>
                         <ul class="space-y-2 text-sm md:text-base text-gray-300">
                             <li>• Attestation: <strong class="text-green-400">$0.50/user</strong></li>
-                            <li>• Auditoria: <strong class="text-green-400">QR code em 5s</strong></li>
-                            <li>• Risco: <strong class="text-green-400">Redução >95%</strong></li>
+                            <li>• Audit: <strong class="text-green-400">QR code in 5s</strong></li>
+                            <li>• Risk: <strong class="text-green-400">&gt;95% reduced</strong></li>
                             <li>• Total: <strong class="text-green-400 text-xl">$0.50/user</strong></li>
                         </ul>
                     </div>
@@ -242,29 +239,29 @@
                 <!-- Annual Projection -->
                 <div class="bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-xl p-6 md:p-8 border-2 border-purple-400">
                     <h3 class="text-2xl md:text-3xl font-bold text-center mb-6 text-purple-300">
-                        📊 PROJEÇÃO ANUAL FUNS.AI
+                        ANNUAL PROJECTION FUNS.AI
                     </h3>
                     
                     <div class="text-center space-y-4">
                         <div>
-                            <p class="text-gray-400 text-sm">Creators auditados/ano</p>
-                            <p class="text-3xl md:text-4xl font-bold text-white">10.000</p>
+                            <p class="text-gray-400 text-sm">Creators audited/year</p>
+                            <p class="text-3xl md:text-4xl font-bold text-white">10,000</p>
                         </div>
                         
                         <div class="text-xl md:text-2xl text-gray-300">
-                            <span class="text-yellow-400 font-bold">$399.50</span> × 10.000
+                            <span class="text-yellow-400 font-bold">$399.50</span> × 10,000
                         </div>
                         
                         <div class="bg-gradient-to-r from-yellow-500/20 to-green-500/20 rounded-xl p-4 md:p-6 border-2 border-yellow-500">
-                            <p class="text-sm text-gray-300 mb-2">ECONOMIA TOTAL ANUAL</p>
+                            <p class="text-sm text-gray-300 mb-2">TOTAL ANNUAL SAVINGS</p>
                             <p class="text-4xl md:text-5xl font-black bg-gradient-to-r from-yellow-400 to-green-400 text-transparent bg-clip-text">
-                                $3.995 milhões
+                                $3.995 million
                             </p>
                             <p class="text-base md:text-lg text-gray-300 mt-4">
-                                ROI: <span class="text-green-400 font-bold">~80.000%</span>
+                                ROI: <span class="text-green-400 font-bold">~80,000%</span>
                             </p>
                             <p class="text-sm text-gray-400 mt-2">
-                                (Investimento $5k → Economia $4M)
+                                (Negligible investment → $4M savings)
                             </p>
                         </div>
                     </div>
@@ -274,7 +271,7 @@
                 <div class="mt-6 md:mt-8 text-center">
                     <div class="inline-block bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl px-6 md:px-8 py-3 md:py-4 shadow-2xl">
                         <p class="text-base md:text-lg italic text-white">
-                            "Com ANNA, provar compliance custa menos que o café do auditor."
+                            "With ANNA, proving compliance costs less than the auditor's coffee."
                         </p>
                     </div>
                 </div>
@@ -284,7 +281,7 @@
                     <button 
                         onclick="closeROIModal()"
                         class="bg-white text-purple-900 font-bold py-3 px-8 rounded-full text-lg hover:scale-105 transition-all shadow-xl">
-                        Entendi! Vamos Simular →
+                        Got it! Let's Simulate →
                     </button>
                 </div>
             </div>
@@ -293,7 +290,7 @@
 
     <!-- Footer -->
     <footer class="container mx-auto px-4 py-8 text-center text-gray-500 text-sm">
-        <p>ANNA Protocol × Funs.ai | Demo em Polygon Amoy Testnet</p>
+        <p>ANNA Protocol × Funs.ai | Demo on Polygon Amoy Testnet</p>
     </footer>
 
     <script>
@@ -307,7 +304,6 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Get form data
             const formData = {
                 name: document.getElementById('userName').value,
                 email: document.getElementById('userEmail').value,
@@ -315,12 +311,10 @@
                 country: document.getElementById('userCountry').value
             };
 
-            // Show loading
             formSection.classList.add('hidden');
             loadingSection.classList.remove('hidden');
 
             try {
-                // Call API
                 const response = await fetch('/api/process_kyc', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -330,20 +324,19 @@
                 const data = await response.json();
 
                 if (data.success && data.kyc_approved) {
-                    // Build results HTML
                     resultsContainer.innerHTML = `
                         <div class="bg-gray-800/50 rounded-lg p-6 text-left space-y-3">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                 <div>
-                                    <p class="text-gray-400">Usuário</p>
+                                    <p class="text-gray-400">User</p>
                                     <p class="font-bold text-lg">${formData.name}</p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-400">Score de Confiança</p>
+                                    <p class="text-gray-400">Trust Score</p>
                                     <p class="font-bold text-lg text-green-400">${data.score}/100</p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-400">Badge Atribuído</p>
+                                    <p class="text-gray-400">Badge Awarded</p>
                                     <p class="font-bold">${data.badge}</p>
                                 </div>
                                 <div>
@@ -361,17 +354,15 @@
                         </div>
                     `;
 
-                    // Set verify link
                     verifyLink.href = data.certificate_url || `https://annaprotocol.com/verify.html?id=${data.attestation_id}`;
 
-                    // Show success
                     loadingSection.classList.add('hidden');
                     successSection.classList.remove('hidden');
                 } else {
-                    throw new Error(data.reason || data.error || 'Erro ao processar KYC');
+                    throw new Error(data.reason || data.error || 'KYC processing failed');
                 }
             } catch (error) {
-                alert('Erro: ' + error.message);
+                alert('Error: ' + error.message);
                 resetForm();
             }
         });
@@ -393,12 +384,10 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Close on ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeROIModal();
         });
 
-        // Close on outside click
         document.getElementById('roiModal').addEventListener('click', (e) => {
             if (e.target.id === 'roiModal') closeROIModal();
         });
