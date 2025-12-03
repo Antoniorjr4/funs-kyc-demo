@@ -1,7 +1,6 @@
 """
 Vercel Serverless Function - Processa KYC e cria attestation ANNA
 Endpoint: POST /api/process_kyc
-OTIMIZADO PARA GÁS + COMPATÍVEL COM DASHBOARD v2
 """
 
 from http.server import BaseHTTPRequestHandler
@@ -11,36 +10,35 @@ import sys
 from datetime import datetime
 from anna_protocol.client import ANNAClient, Reasoning, ReasoningStep, Metadata
 
-
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             print("=== DEBUG: Request received ===", file=sys.stderr)
-
+            
             # Ler dados do request
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             data = json.loads(post_data.decode('utf-8'))
-
+            
             print(f"DEBUG: Data received: {data}", file=sys.stderr)
-
+            
             # Extrair dados do formulário
-            user_name = data.get('name', '').strip()
+            user_name = data.get('name')
             user_age = data.get('age')
-            user_country = data.get('country', 'Desconhecido')
+            user_country = data.get('country')
             account_type = data.get('account_type', 'creator')
-
+            
             print(f"DEBUG: Processing KYC for {user_name}, age {user_age}", file=sys.stderr)
-
+            
             # Simular análise de KYC
             kyc_result = self._simulate_kyc_analysis(user_name, user_age, user_country)
-
+            
             print(f"DEBUG: KYC result: {kyc_result}", file=sys.stderr)
-
+            
             # Se aprovado, criar attestation ANNA
             if kyc_result['approved']:
                 print("DEBUG: Creating ANNA attestation...", file=sys.stderr)
-
+                
                 anna_result = self._create_anna_attestation(
                     user_name=user_name,
                     user_age=user_age,
@@ -48,9 +46,9 @@ class handler(BaseHTTPRequestHandler):
                     account_type=account_type,
                     kyc_score=kyc_result['score']
                 )
-
+                
                 print(f"DEBUG: Attestation created: {anna_result['attestation_id']}", file=sys.stderr)
-
+                
                 response = {
                     'success': True,
                     'kyc_approved': True,
@@ -67,57 +65,62 @@ class handler(BaseHTTPRequestHandler):
                     'kyc_approved': False,
                     'reason': kyc_result['reason']
                 }
-
+            
             # Enviar resposta
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(json.dumps(response).encode())
-
+            
             print("=== DEBUG: Response sent successfully ===", file=sys.stderr)
-
+            
         except Exception as e:
             print(f"=== ERROR: {str(e)} ===", file=sys.stderr)
             import traceback
             traceback.print_exc(file=sys.stderr)
-
-            error_response = {'success': False, 'error': str(e)}
+            
+            error_response = {
+                'success': False,
+                'error': str(e)
+            }
             self.send_response(500)
             self.send_header('Content-type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(json.dumps(error_response).encode())
-
+    
     def do_OPTIONS(self):
+        # CORS preflight
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
-
+    
     def _simulate_kyc_analysis(self, name, age, country):
         """Simula análise de KYC"""
         score = 92
-
+        
         if int(age) < 18:
             return {
                 'approved': False,
                 'reason': 'Usuário menor de 18 anos',
                 'score': 0
             }
-
+        
         return {
             'approved': True,
             'score': score,
             'badge': 'Verified Creator'
         }
-
+    
     def _create_anna_attestation(self, user_name, user_age, user_country, account_type, kyc_score):
-        """Cria attestation real no ANNA Protocol - VERSÃO OTIMIZADA PARA GÁS"""
-
+        """Cria attestation real no ANNA Protocol"""
+        
         print("DEBUG: Initializing ANNA client...", file=sys.stderr)
-
+        
+        # Inicializar cliente ANNA
         client = ANNAClient(
             private_key=os.getenv('ANNA_PRIVATE_KEY'),
             network='polygon-amoy',
@@ -125,23 +128,27 @@ class handler(BaseHTTPRequestHandler):
             attestation_contract='0x4c92d3305e7F1417f718827B819E285325a823d3',
             reputation_contract='0xd1F37B4be48FC4B8287059C92F9A2450D4b0990B'
         )
-
-        # 1. REASONING COMPLETO (obrigatório para o hash de integridade)
+        
+        print("DEBUG: Creating reasoning...", file=sys.stderr)
+        
+        # Criar raciocínio estruturado
         reasoning = Reasoning(
-            input=f"KYC verificação de {user_name}, {user_age} anos, {user_country}",
+            input=f"KYC {user_name}, {user_age}y, {user_country}",
             reasoning_steps=[
-                ReasoningStep(1, "Análise Biométrica", "Selfie match: 98% com documento. Liveness detectado."),
-                ReasoningStep(2, "Validação de Documentos", f"Documento válido emitido em {user_country}. Dados consistentes."),
-                ReasoningStep(3, "Risco de Compliance", f"Sem registros OFAC/PEP. Idade {user_age} ≥ 18 anos.")
+                ReasoningStep(1, "Biometria", f"Match 98%, liveness OK"),
+                ReasoningStep(2, "Documentos", f"Válido {user_country}"),
+                ReasoningStep(3, "Compliance", f"Sem OFAC, idade {user_age}>18")
             ],
-            conclusion=f"KYC aprovado. Badge 'Verified {account_type.title()}' atribuído.",
-            confidence=round(kyc_score / 100, 2)
+            conclusion=f"Aprovado. Badge Verified {account_type.title()}",
+            confidence=kyc_score / 100
         )
-
-        # 2. METADATA COMPACTO + COMPATÍVEL COM O FRONTEND (gás ~$0.07)
+        
+        print("DEBUG: Creating metadata...", file=sys.stderr)
+        
+        # Criar metadados estruturados (COMPACTOS - max 500 chars)
         timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
         external_id = f"FUNS-KYC-{timestamp}"
-
+        
         metadata = Metadata(
             external_id=external_id,
             document_type="kyc_creator_onboarding",
@@ -150,38 +157,40 @@ class handler(BaseHTTPRequestHandler):
             custom_fields={
                 "type": account_type,
                 "badge": f"Verified {account_type.title()}",
-                "risk_score": round((100 - kyc_score) / 100, 2),
+                "risk": round((100 - kyc_score) / 100, 2),
                 "country": user_country,
-                "age": int(user_age),
-
-                # FORMATO MÍNIMO QUE O FRONTEND ENTENDE PERFEITAMENTE
-                "ai_reasoning": "summary",                    # marcador para o componente
-                "reasoning_summary": [                         # exibido lindamente no verify
-                    "Biometria: 98% match + liveness OK",
-                    f"Documento válido ({user_country})",
-                    f"Compliance aprovado (idade {user_age})"
-                ],
-                "confidence": round(kyc_score / 100, 2)
-                # "full_reasoning": "https://ipfs.io/ipfs/Qm..."  # futuro (Q1 2026)
+                "age": user_age,
+                # Reasoning compacto (quebra caixa-preta)
+                "reasoning": {
+                    "s": [
+                        ["bio", "98"],
+                        ["doc", user_country],
+                        ["cmp", user_age]
+                    ],
+                    "r": f"ok {account_type[0]}",
+                    "c": kyc_score
+                }
             }
         )
-
-        print("DEBUG: Submitting attestation...", file=sys.stderr)
-
+        
+        print("DEBUG: Calling submit_attestation_with_metadata...", file=sys.stderr)
+        
+        # Criar attestation on-chain
         result = client.submit_attestation_with_metadata(
             content=f"KYC aprovado: {user_name} é Verified {account_type.title()}",
             reasoning=reasoning,
             metadata=metadata
         )
-
-        print(f"DEBUG: Attestation created! ID: {result.attestation_id}", file=sys.stderr)
-
+        
+        print(f"DEBUG: Attestation created successfully! ID: {result.attestation_id}", file=sys.stderr)
+        
+        # Garantir prefixo 0x
         attestation_id = result.attestation_id if result.attestation_id.startswith('0x') else f"0x{result.attestation_id}"
         tx_hash = result.tx_hash if result.tx_hash.startswith('0x') else f"0x{result.tx_hash}"
-
+        
         return {
             'attestation_id': attestation_id,
             'tx_hash': tx_hash,
             'certificate_url': f"https://annaprotocol.com/verify?hash={attestation_id}",
-            'dashboard_url': "https://dashboard.annaprotocol.online"
+            'dashboard_url': f"https://dashboard.annaprotocol.online"
         }
