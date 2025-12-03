@@ -180,6 +180,7 @@ class handler(BaseHTTPRequestHandler):
             content=f"KYC aprovado: {user_name} é Verified {account_type.title()}",
             reasoning=reasoning,
             metadata=metadata
+            gas_limit=1200000
         )
         
         print(f"DEBUG: Attestation created successfully! ID: {result.attestation_id}", file=sys.stderr)
