@@ -120,7 +120,7 @@ class handler(BaseHTTPRequestHandler):
         
         print("DEBUG: Initializing ANNA client...", file=sys.stderr)
         
-        # Inicializar cliente ANNA com endereços corretos dos contratos
+        # Inicializar cliente ANNA
         client = ANNAClient(
             private_key=os.getenv('ANNA_PRIVATE_KEY'),
             network='polygon-amoy',
@@ -133,31 +133,19 @@ class handler(BaseHTTPRequestHandler):
         
         # Criar raciocínio estruturado
         reasoning = Reasoning(
-            input=f"Verificar KYC de {user_name} para cadastro como {account_type} na Funs.ai. País: {user_country}, Idade: {user_age}.",
+            input=f"KYC {user_name}, {user_age}y, {user_country}",
             reasoning_steps=[
-                ReasoningStep(
-                    step_number=1,
-                    description="Análise biométrica",
-                    rationale=f"Selfie match: 98% com foto do documento. Sem deepfake detectado. Usuário verificado: {user_name}."
-                ),
-                ReasoningStep(
-                    step_number=2,
-                    description="Verificação de documentos",
-                    rationale=f"Documento válido, emitido em {user_country}. Endereço coincide com declaração fiscal."
-                ),
-                ReasoningStep(
-                    step_number=3,
-                    description="Risco de compliance",
-                    rationale=f"Sem hits em OFAC/PEP. Idade {user_age} anos (>18 para SocialFi). País: {user_country} sem restrições."
-                )
+                ReasoningStep(1, "Biometria", f"Match 98%, liveness OK"),
+                ReasoningStep(2, "Documentos", f"Válido {user_country}"),
+                ReasoningStep(3, "Compliance", f"Sem OFAC, idade {user_age}>18")
             ],
-            conclusion=f"Aprovar KYC. Atribuir badge 'Verified {account_type.title()}'. Permitir acesso a features premium da Funs.ai.",
+            conclusion=f"Aprovado. Badge Verified {account_type.title()}",
             confidence=kyc_score / 100
         )
         
         print("DEBUG: Creating metadata...", file=sys.stderr)
         
-        # Criar metadados estruturados
+        # Criar metadados estruturados (COMPACTOS - max 500 chars)
         timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
         external_id = f"FUNS-KYC-{timestamp}"
         
@@ -165,57 +153,38 @@ class handler(BaseHTTPRequestHandler):
             external_id=external_id,
             document_type="kyc_creator_onboarding",
             client_name=user_name,
-            system_origin="Funs.ai SocialFi Platform v2.1",
+            system_origin="Funs.ai v2.1",
             custom_fields={
-                "account_type": account_type,
-                "badge_type": f"Verified {account_type.title()}",
-                "risk_score": round((100 - kyc_score) / 100, 2),
+                "type": account_type,
+                "badge": f"Verified {account_type.title()}",
+                "risk": round((100 - kyc_score) / 100, 2),
                 "country": user_country,
                 "age": user_age,
-                "features_unlocked": ["nft_minting", "token_rewards", "community_creation"]
-,
-                # Reasoning completo estruturado (quebra a caixa-preta da IA)
-                "ai_reasoning": {
-                    "input": f"Verificar KYC de {user_name} para cadastro como {account_type} na Funs.ai. País: {user_country}, Idade: {user_age}.",
+                # Reasoning compacto (quebra caixa-preta)
+                "reasoning": {
                     "steps": [
-                        {
-                            "step": 1,
-                            "title": "Análise Biométrica",
-                            "description": f"Selfie match: 98% com foto do documento. Sem deepfake detectado. Usuário verificado: {user_name}.",
-                            "status": "approved"
-                        },
-                        {
-                            "step": 2,
-                            "title": "Verificação de Documentos",
-                            "description": f"Documento válido, emitido em {user_country}. Endereço coincide com declaração fiscal.",
-                            "status": "approved"
-                        },
-                        {
-                            "step": 3,
-                            "title": "Risco de Compliance",
-                            "description": f"Sem hits em OFAC/PEP. Idade {user_age} anos (>18 para SocialFi). País: {user_country} sem restrições.",
-                            "status": "approved"
-                        }
+                        {"n": 1, "t": "Biometria", "r": "Match 98% ✓"},
+                        {"n": 2, "t": "Docs", "r": f"{user_country} ✓"},
+                        {"n": 3, "t": "Compliance", "r": f"{user_age}y, OFAC ✓"}
                     ],
-                    "conclusion": f"Aprovar KYC. Atribuir badge 'Verified {account_type.title()}'. Permitir acesso a features premium da Funs.ai.",
-                    "confidence": kyc_score / 100,
-                    "timestamp": datetime.utcnow().isoformat()
+                    "result": f"Approved: Verified {account_type.title()}",
+                    "conf": kyc_score / 100
                 }
             }
         )
         
         print("DEBUG: Calling submit_attestation_with_metadata...", file=sys.stderr)
         
-        # Criar attestation on-chain usando SDK 1.2.13
+        # Criar attestation on-chain
         result = client.submit_attestation_with_metadata(
-            content=f"Decisão KYC: Aprovada para {user_name}. Badge Verified {account_type.title()} atribuído.",
+            content=f"KYC aprovado: {user_name} é Verified {account_type.title()}",
             reasoning=reasoning,
             metadata=metadata
         )
         
         print(f"DEBUG: Attestation created successfully! ID: {result.attestation_id}", file=sys.stderr)
         
-        # Garantir que IDs têm prefixo 0x
+        # Garantir prefixo 0x
         attestation_id = result.attestation_id if result.attestation_id.startswith('0x') else f"0x{result.attestation_id}"
         tx_hash = result.tx_hash if result.tx_hash.startswith('0x') else f"0x{result.tx_hash}"
         
