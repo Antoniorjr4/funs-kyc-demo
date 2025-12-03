@@ -329,14 +329,14 @@
 
                 const data = await response.json();
 
-                if (data.status === 'success') {
+                if (data.success && data.kyc_approved) {
                     // Build results HTML
                     resultsContainer.innerHTML = `
                         <div class="bg-gray-800/50 rounded-lg p-6 text-left space-y-3">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                 <div>
                                     <p class="text-gray-400">Usuário</p>
-                                    <p class="font-bold text-lg">${data.user_name}</p>
+                                    <p class="font-bold text-lg">${formData.name}</p>
                                 </div>
                                 <div>
                                     <p class="text-gray-400">Score de Confiança</p>
@@ -353,22 +353,22 @@
                             </div>
                             <div class="border-t border-gray-700 pt-3">
                                 <p class="text-gray-400 text-sm mb-1">Transaction Hash</p>
-                                <a href="https://amoy.polygonscan.com/tx/${data.transaction_hash}" target="_blank" 
+                                <a href="https://amoy.polygonscan.com/tx/${data.tx_hash}" target="_blank" 
                                    class="font-mono text-xs text-blue-400 hover:text-blue-300 break-all">
-                                    ${data.transaction_hash}
+                                    ${data.tx_hash}
                                 </a>
                             </div>
                         </div>
                     `;
 
                     // Set verify link
-                    verifyLink.href = `https://annaprotocol.com/verify.html?id=${data.attestation_id}`;
+                    verifyLink.href = data.certificate_url || `https://annaprotocol.com/verify.html?id=${data.attestation_id}`;
 
                     // Show success
                     loadingSection.classList.add('hidden');
                     successSection.classList.remove('hidden');
                 } else {
-                    throw new Error(data.message || 'Erro ao processar KYC');
+                    throw new Error(data.reason || data.error || 'Erro ao processar KYC');
                 }
             } catch (error) {
                 alert('Erro: ' + error.message);
