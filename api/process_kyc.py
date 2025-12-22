@@ -374,12 +374,13 @@ class handler(BaseHTTPRequestHandler):
         print("   2️⃣ Uploading to IPFS (Filebase)...", file=sys.stderr)
         print("   3️⃣ Recording on Polygon blockchain...", file=sys.stderr)
         
-        result = client.create_attestation_v2(
-            public_reasoning=public_reasoning,
-            private_reasoning=private_reasoning,
-            metadata=metadata,
-            wait_for_confirmation=True
-        )
+result = client.create_attestation_v2(
+    public_reasoning=public_reasoning,
+    private_reasoning=private_reasoning,
+    metadata=metadata,
+    wait_for_confirmation=True,
+    gas_limit=500000  # Aumentar gas limit
+)
         
         print("✅ Attestation submitted!", file=sys.stderr)
         print(f"   📝 ID: {result.attestation_id}", file=sys.stderr)
