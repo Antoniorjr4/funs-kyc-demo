@@ -1,6 +1,19 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/process_kyc.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+    {
+      "src": "/api/process_kyc",
+      "dest": "api/process_kyc.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
 }
