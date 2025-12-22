@@ -4,12 +4,20 @@
     {
       "src": "api/process_kyc.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/process_kyc",
       "dest": "api/process_kyc.py"
+    },
+    {
+      "src": "/",
+      "dest": "/simulator.html"
     },
     {
       "src": "/(.*)",
