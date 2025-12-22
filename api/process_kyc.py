@@ -131,10 +131,7 @@ class handler(BaseHTTPRequestHandler):
         client = ANNAClient(
             private_key=os.getenv('ANNA_PRIVATE_KEY'),
             network='polygon-amoy',
-            custom_rpc='https://rpc-amoy.polygon.technology/',
-            identity_contract='0x8b9b5D3f698BE53Ae98162f6e013Bc9214bc7AF0',
             attestation_contract='0x4c92d3305e7F1417f718827B819E285325a823d3',
-            reputation_contract='0xd1F37B4be48FC4B8287059C92F9A2450D4b0990B',
             filebase_api_key=os.getenv('FILEBASE_ACCESS_KEY'),
             filebase_api_secret=os.getenv('FILEBASE_SECRET_KEY')
         )
