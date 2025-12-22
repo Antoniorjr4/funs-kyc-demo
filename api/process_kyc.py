@@ -9,7 +9,7 @@ import json
 import os
 import sys
 from datetime import datetime
-from anna_protocol.client import (
+from anna_protocol import (
     ANNAClient,
     PublicReasoning,
     PrivateReasoning,
