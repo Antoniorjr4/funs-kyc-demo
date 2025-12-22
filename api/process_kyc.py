@@ -126,6 +126,19 @@ class handler(BaseHTTPRequestHandler):
         """
         
         print("🔧 Initializing ANNA client with IPFS...", file=sys.stderr)
+
+        # Patch para aumentar gas limit (necessário para grandes cargas no IPFS)
+
+        from anna_protocol import client as anna_client_module
+        _original_submit = anna_client_module.ANNAClient.submit_attestation
+        
+        def submit_attestation_with_more_gas(self, *args, **kwargs):
+            if "tx_overrides" not in kwargs or kwargs["tx_overrides"] is None:
+                kwargs["tx_overrides"] = {}
+            kwargs["tx_overrides"]["gas"] = 900_000
+            return _original_submit(self, *args, **kwargs)
+
+        anna_client_module.ANNAClient.submit_attestation = submit_attestation_with_more_gas
         
         # Inicializar cliente ANNA com Filebase/IPFS
         client = ANNAClient(
