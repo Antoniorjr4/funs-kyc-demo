@@ -6,67 +6,31 @@
     <title>ANNA × Funs.ai - KYC Simulator v2.0 (IPFS)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         body {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(30, 30, 46, 0.7);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.6s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .pulse-glow {
-            animation: pulseGlow 2s infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 60px rgba(168, 85, 247, 0.3); }
+            border: 1px solid rgba(168, 85, 247, 0.2);
         }
         
         .ipfs-badge {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            animation: badgePulse 3s infinite;
+            animation: pulse-glow 2s ease-in-out infinite;
         }
         
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
         }
         
         .reasoning-card {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
             border: 2px solid rgba(168, 85, 247, 0.3);
             transition: all 0.3s ease;
         }
@@ -107,242 +71,212 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <!-- Header -->
-    <header class="gradient-bg py-4 shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between flex-wrap gap-4">
-                <div class="flex items-center gap-3">
-                    <button 
-                        onclick="window.location.href='index.html'"
-                        class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-all border border-white/30">
-                        <i class="fas fa-arrow-left"></i>
-                        <span class="hidden sm:inline">Back</span>
-                    </button>
-                    <div>
-                        <h1 class="text-2xl md:text-3xl font-bold tracking-tight">ANNA × Funs.ai</h1>
-                        <p class="text-xs text-white/70">KYC Simulator v2.0 with IPFS</p>
-                    </div>
+<body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <div class="ipfs-badge w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-network-wired text-2xl text-white"></i>
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="ipfs-badge text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2">
-                        <i class="fas fa-cube"></i>
-                        IPFS Enabled
-                    </div>
-                    <a href="https://dashboard.annaprotocol.online" target="_blank" 
-                       class="px-4 py-2 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition text-sm md:text-base">
-                        Dashboard
-                    </a>
-                </div>
+                <h1 class="text-4xl font-bold">
+                    <span class="text-purple-400">ANNA</span> × 
+                    <span class="text-blue-400">Funs.ai</span>
+                </h1>
             </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 md:py-12">
-        <!-- Hero Section -->
-        <div class="text-center mb-8 md:mb-12 fade-in">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">
-                KYC with Complete AI Transparency
-            </h2>
-            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                Breaking the AI black box: Every decision step is recorded on IPFS, encrypted, and auditable on-chain
+            <p class="text-gray-400 text-lg">KYC Simulator v2.0 with IPFS Transparency</p>
+            <p class="text-sm text-gray-500 mt-2">
+                <i class="fas fa-shield-alt text-purple-400"></i> 
+                Complete AI reasoning stored on IPFS with encryption
             </p>
-            <div class="mt-6 flex items-center justify-center gap-4 flex-wrap">
-                <div class="flex items-center gap-2 text-sm text-gray-300">
-                    <i class="fas fa-shield-alt text-green-400"></i>
-                    <span>AES-256-GCM Encryption</span>
-                </div>
-                <div class="flex items-center gap-2 text-sm text-gray-300">
-                    <i class="fas fa-cube text-purple-400"></i>
-                    <span>IPFS Storage</span>
-                </div>
-                <div class="flex items-center gap-2 text-sm text-gray-300">
-                    <i class="fas fa-link text-blue-400"></i>
-                    <span>On-chain Reference</span>
-                </div>
-            </div>
         </div>
 
-        <!-- KYC Form -->
-        <div class="max-w-4xl mx-auto">
-            <div id="formSection" class="glass-effect rounded-2xl p-6 md:p-8 mb-8">
-                <!-- Warning Banner -->
-                <div class="bg-yellow-500/10 border-2 border-yellow-500/50 rounded-lg p-4 mb-6">
-                    <div class="flex items-start gap-3">
-                        <i class="fas fa-exclamation-triangle text-yellow-500 text-xl mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-yellow-300 mb-1">⚠️ Demo Mode - Use Simulated Data</h4>
-                            <p class="text-sm text-gray-300">
-                                This is a demonstration. Please use <strong>fake/simulated data</strong> only. 
-                                Sensitive fields (CPF, Passport) will be <strong>encrypted on IPFS</strong> 
-                                and visible only to you in the dashboard.
-                            </p>
-                        </div>
+        <!-- Form Section -->
+        <div id="formSection" class="glass-effect rounded-2xl p-6 md:p-8 mb-8">
+            <!-- Warning Banner -->
+            <div class="bg-yellow-500/10 border-2 border-yellow-500/50 rounded-lg p-4 mb-6">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-triangle text-yellow-500 text-xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-yellow-300 mb-1">⚠️ Demo Mode - Use Simulated Data</h4>
+                        <p class="text-sm text-gray-300">
+                            This is a demonstration. Please use <strong>fake/simulated data</strong> only. 
+                            Sensitive fields (CPF, Passport) will be <strong>encrypted on IPFS</strong> 
+                            and visible only to you in the dashboard.
+                        </p>
                     </div>
                 </div>
+            </div>
 
-                <h3 class="text-2xl font-bold mb-6 text-center">Enter User Information</h3>
-                
-                <form id="kycForm" class="space-y-6">
-                    <!-- Full Name -->
+            <h3 class="text-2xl font-bold mb-6 text-center">Enter User Information</h3>
+            
+            <form id="kycForm" class="space-y-6">
+                <!-- Name & Email -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium mb-2">Full Name</label>
                         <input type="text" id="userName" required
                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
-                               placeholder="e.g. Maria Silva">
+                               placeholder="Alice Silva">
                     </div>
 
-                    <!-- Email -->
                     <div>
                         <label class="block text-sm font-medium mb-2">Email</label>
                         <input type="email" id="userEmail" required
                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
-                               placeholder="maria@email.com">
+                               placeholder="alice@example.com">
+                    </div>
+                </div>
+
+                <!-- Age & Country -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Age</label>
+                        <input type="number" id="userAge" required min="18" max="120"
+                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
+                               placeholder="25">
                     </div>
 
-                    <!-- Age & Country -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Country</label>
+                        <select id="userCountry" required
+                                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition">
+                            <option value="Brazil">Brazil</option>
+                            <option value="USA">United States</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sensitive Data Section -->
+                <div class="border-t border-gray-700 pt-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-lock text-purple-400"></i>
+                        <h4 class="font-bold text-purple-300">Sensitive Data (Will be Encrypted)</h4>
+                    </div>
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Age</label>
-                            <input type="number" id="userAge" required min="18" max="120"
+                            <label class="block text-sm font-medium mb-2">
+                                CPF / Tax ID 
+                                <span class="text-xs text-gray-400">(use fake data)</span>
+                            </label>
+                            <input type="text" id="userCPF" required
                                    class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
-                                   placeholder="25">
+                                   placeholder="000.000.000-00"
+                                   maxlength="14">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium mb-2">Country</label>
-                            <select id="userCountry" required
-                                    class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition">
-                                <option value="Brazil">Brazil</option>
-                                <option value="USA">United States</option>
-                                <option value="Portugal">Portugal</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                                <option value="Canada">Canada</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            <label class="block text-sm font-medium mb-2">
+                                Passport Number
+                                <span class="text-xs text-gray-400">(use fake data)</span>
+                            </label>
+                            <input type="text" id="userPassport" required
+                                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
+                                   placeholder="AB123456"
+                                   maxlength="20">
                         </div>
                     </div>
+                </div>
 
-                    <!-- Sensitive Data Section -->
-                    <div class="border-t border-gray-700 pt-6">
-                        <div class="flex items-center gap-2 mb-4">
-                            <i class="fas fa-lock text-purple-400"></i>
-                            <h4 class="font-bold text-purple-300">Sensitive Data (Will be Encrypted)</h4>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">
-                                    CPF / Tax ID 
-                                    <span class="text-xs text-gray-400">(use fake data)</span>
-                                </label>
-                                <input type="text" id="userCPF" required
-                                       class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
-                                       placeholder="000.000.000-00"
-                                       maxlength="14">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium mb-2">
-                                    Passport Number
-                                    <span class="text-xs text-gray-400">(use fake data)</span>
-                                </label>
-                                <input type="text" id="userPassport" required
-                                       class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition"
-                                       placeholder="AB123456"
-                                       maxlength="20">
-                            </div>
-                        </div>
+                <!-- Document Upload Section (Mock Visual) -->
+                <div class="border-t border-gray-700 pt-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-cloud-upload-alt text-blue-400"></i>
+                        <h4 class="font-bold text-blue-300">Document Upload (Simulated)</h4>
                     </div>
-
-                    <!-- Document Upload Section (Mock Visual) -->
-                    <div class="border-t border-gray-700 pt-6">
-                        <div class="flex items-center gap-2 mb-4">
-                            <i class="fas fa-cloud-upload-alt text-blue-400"></i>
-                            <h4 class="font-bold text-blue-300">Document Upload (Simulated)</h4>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Selfie Upload Mock -->
-                            <div id="selfieUploadCard" class="upload-card bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-all">
-                                <i class="fas fa-camera text-4xl text-gray-400 mb-3"></i>
-                                <p class="font-semibold mb-1">Selfie Photo</p>
-                                <p class="text-xs text-gray-400">Click to simulate upload</p>
-                                <div class="upload-preview hidden mt-3">
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%234ade80' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='40' fill='white'%3E✓%3C/text%3E%3C/svg%3E" 
-                                         class="w-20 h-20 mx-auto rounded-lg" alt="Selfie">
-                                    <p class="text-xs text-green-400 mt-2">✓ Uploaded</p>
-                                </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Selfie Upload Mock -->
+                        <div id="selfieUploadCard" class="upload-card bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-all">
+                            <i class="fas fa-camera text-4xl text-gray-400 mb-3"></i>
+                            <p class="font-semibold mb-1">Selfie Photo</p>
+                            <p class="text-xs text-gray-400">Click to simulate upload</p>
+                            <div class="upload-preview hidden mt-3">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%234ade80' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='40' fill='white'%3E✓%3C/text%3E%3C/svg%3E" 
+                                     class="w-20 h-20 mx-auto rounded-lg" alt="Selfie">
+                                <p class="text-xs text-green-400 mt-2">✓ Uploaded</p>
                             </div>
+                        </div>
 
-                            <!-- Document Upload Mock -->
-                            <div id="documentUploadCard" class="upload-card bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-all">
-                                <i class="fas fa-id-card text-4xl text-gray-400 mb-3"></i>
-                                <p class="font-semibold mb-1">ID Document</p>
-                                <p class="text-xs text-gray-400">Click to simulate upload</p>
-                                <div class="upload-preview hidden mt-3">
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%234ade80' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='40' fill='white'%3E✓%3C/text%3E%3C/svg%3E" 
-                                         class="w-20 h-20 mx-auto rounded-lg" alt="Document">
-                                    <p class="text-xs text-green-400 mt-2">✓ Uploaded</p>
-                                </div>
+                        <!-- Document Upload Mock -->
+                        <div id="documentUploadCard" class="upload-card bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-all">
+                            <i class="fas fa-id-card text-4xl text-gray-400 mb-3"></i>
+                            <p class="font-semibold mb-1">ID Document</p>
+                            <p class="text-xs text-gray-400">Click to simulate upload</p>
+                            <div class="upload-preview hidden mt-3">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%234ade80' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='40' fill='white'%3E✓%3C/text%3E%3C/svg%3E" 
+                                     class="w-20 h-20 mx-auto rounded-lg" alt="Document">
+                                <p class="text-xs text-green-400 mt-2">✓ Uploaded</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" 
-                            class="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg font-bold text-lg transition-all transform hover:scale-[1.02] shadow-lg">
-                        <i class="fas fa-brain mr-2"></i>
-                        Process KYC with AI Transparency
-                    </button>
-                </form>
+                <!-- Submit Button -->
+                <button type="submit" 
+                        class="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg font-bold text-lg transition transform hover:scale-105">
+                    <i class="fas fa-robot mr-2"></i>
+                    Process KYC with AI Transparency
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Section -->
+        <div id="loadingSection" class="hidden glass-effect rounded-2xl p-8 mb-8 text-center">
+            <div class="animate-spin w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-6"></div>
+            <h3 class="text-2xl font-bold mb-4">Processing KYC...</h3>
+            <p class="text-gray-400 mb-6">AI is analyzing your information with complete transparency</p>
+            
+            <div class="space-y-3 text-left max-w-md mx-auto">
+                <div id="step1" class="flex items-center gap-3 text-gray-500">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <span>Analyzing biometric data...</span>
+                </div>
+                <div id="step2" class="flex items-center gap-3 text-gray-500">
+                    <i class="fas fa-circle"></i>
+                    <span>Generating detailed reasoning...</span>
+                </div>
+                <div id="step3" class="flex items-center gap-3 text-gray-500">
+                    <i class="fas fa-circle"></i>
+                    <span>Encrypting sensitive data (AES-256-GCM)...</span>
+                </div>
+                <div id="step4" class="flex items-center gap-3 text-gray-500">
+                    <i class="fas fa-circle"></i>
+                    <span>Uploading to IPFS (Filebase)...</span>
+                </div>
+                <div id="step5" class="flex items-center gap-3 text-gray-500">
+                    <i class="fas fa-circle"></i>
+                    <span>Recording on Polygon blockchain...</span>
+                </div>
             </div>
+        </div>
 
-            <!-- Loading Section -->
-            <div id="loadingSection" class="glass-effect rounded-2xl p-8 text-center hidden">
-                <div class="spinner mx-auto mb-4"></div>
-                <h3 class="text-xl font-bold mb-2">Processing KYC with Full Transparency...</h3>
-                <p class="text-gray-400 mb-6">Creating attestation with IPFS reasoning</p>
+        <!-- Success Section -->
+        <div id="successSection" class="hidden">
+            <div class="glass-effect rounded-2xl p-8 mb-8 text-center">
+                <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-3xl text-white"></i>
+                </div>
+                <h3 class="text-3xl font-bold mb-2">KYC Approved!</h3>
+                <p class="text-gray-400 mb-6">Your identity has been verified with AI transparency</p>
                 
-                <div class="mt-8 space-y-3 text-sm text-left max-w-md mx-auto">
-                    <div class="flex items-center gap-3 text-gray-300 bg-gray-800/30 p-3 rounded-lg">
-                        <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                        <span>🧠 Running AI analysis on documents...</span>
-                    </div>
-                    <div class="flex items-center gap-3 text-gray-300 bg-gray-800/30 p-3 rounded-lg">
-                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                        <span>📝 Generating detailed reasoning steps...</span>
-                    </div>
-                    <div class="flex items-center gap-3 text-gray-300 bg-gray-800/30 p-3 rounded-lg">
-                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span>🔒 Encrypting sensitive data (AES-256)...</span>
-                    </div>
-                    <div class="flex items-center gap-3 text-gray-300 bg-gray-800/30 p-3 rounded-lg">
-                        <div class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-                        <span>💾 Uploading to IPFS (Filebase)...</span>
-                    </div>
-                    <div class="flex items-center gap-3 text-gray-300 bg-gray-800/30 p-3 rounded-lg">
-                        <div class="w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
-                        <span>⛓️  Recording on Polygon blockchain...</span>
-                    </div>
+                <div class="inline-block bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-3 rounded-full mb-6">
+                    <span class="font-bold text-white">Score: <span id="scoreDisplay">0</span>/100</span>
+                </div>
+                
+                <div class="inline-block bg-purple-600 px-4 py-2 rounded-full text-sm font-bold" id="badgeDisplay">
+                    Verified Creator
                 </div>
             </div>
 
-            <!-- Success Section -->
-            <div id="successSection" class="glass-effect rounded-2xl p-6 md:p-8 hidden fade-in">
-                <div class="text-center mb-6">
-                    <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 pulse-glow">
-                        <i class="fas fa-check text-4xl text-white"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-green-400 mb-2">KYC Approved!</h3>
-                    <p class="text-gray-400">User verified with complete AI transparency</p>
-                </div>
-
-                <!-- Results Container -->
-                <div id="resultsContainer" class="mb-6"></div>
-
-                <!-- IPFS Transparency Card - DESTAQUE! -->
+            <!-- Result Card -->
+            <div class="glass-effect rounded-2xl p-6 mb-8">
+                <!-- IPFS Transparency Card -->
                 <div class="reasoning-card rounded-xl p-6 mb-6">
                     <div class="flex items-start gap-4">
                         <div class="bg-purple-500 rounded-lg p-3 flex-shrink-0">
@@ -373,88 +307,94 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Reasoning Preview -->
-                            <div id="reasoningPreview" class="bg-gray-800/50 rounded-lg p-4 mb-4 text-xs space-y-1">
-                                <!-- Preenchido dinamicamente -->
-                            </div>
-                            
-                            <!-- IPFS Info -->
-                            <div class="bg-gray-800/50 rounded-lg p-3 mb-4">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs text-gray-400">IPFS CID:</span>
-                                    <button onclick="copyIPFS()" class="text-xs text-purple-400 hover:text-purple-300">
-                                        <i class="fas fa-copy mr-1"></i>Copy
+
+                            <!-- IPFS CID (copyable) -->
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-400 mb-2">IPFS CID:</label>
+                                <div class="flex items-center gap-2">
+                                    <code id="ipfsCidDisplay" class="flex-grow bg-gray-800 px-3 py-2 rounded text-xs text-purple-300 font-mono truncate"></code>
+                                    <button onclick="copyToClipboard('ipfsCidDisplay')" 
+                                            class="px-3 py-2 bg-purple-600 hover:bg-purple-700 rounded text-xs transition">
+                                        <i class="fas fa-copy"></i>
                                     </button>
                                 </div>
-                                <p id="ipfsCID" class="font-mono text-sm text-purple-400 break-all"></p>
                             </div>
-                            
-                            <!-- View Reasoning Button -->
-                            <button 
-                                onclick="viewFullReasoning()"
-                                class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg font-bold transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                                <i class="fas fa-eye"></i>
-                                View Full AI Reasoning on IPFS
+
+                            <!-- TX Hash (copyable) -->
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-400 mb-2">Transaction Hash:</label>
+                                <div class="flex items-center gap-2">
+                                    <code id="txHashDisplay" class="flex-grow bg-gray-800 px-3 py-2 rounded text-xs text-blue-300 font-mono truncate"></code>
+                                    <button onclick="copyToClipboard('txHashDisplay')" 
+                                            class="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded text-xs transition">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Reasoning Preview -->
+                            <div class="bg-gray-800/50 rounded-lg p-4 mb-4">
+                                <p class="text-xs text-gray-400 mb-2">AI Decision Trail (5 steps):</p>
+                                <ul id="reasoningSteps" class="space-y-1 text-xs text-gray-300">
+                                    <!-- Steps will be populated by JS -->
+                                </ul>
+                            </div>
+
+                            <!-- View in Dashboard Button -->
+                            <button onclick="viewInDashboard()" 
+                                    class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg font-bold transition">
+                                <i class="fas fa-tachometer-alt mr-2"></i>
+                                View Full Reasoning in Dashboard
                             </button>
+                            <p class="text-xs text-center text-gray-400 mt-2">
+                                Decrypt and view complete AI reasoning with CPF/Passport
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Actions -->
+                <!-- Links -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a id="verifyLink" href="#" target="_blank"
-                       class="py-3 px-6 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-center transition flex items-center justify-center gap-2">
+                    <a id="certificateLink" href="#" target="_blank" 
+                       class="flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition">
                         <i class="fas fa-certificate"></i>
                         View Certificate
                     </a>
-                    <a id="polygonLink" href="#" target="_blank"
-                       class="py-3 px-6 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-center transition flex items-center justify-center gap-2">
+                    <a id="polygonScanLink" href="#" target="_blank" 
+                       class="flex items-center justify-center gap-2 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition">
                         <i class="fas fa-link"></i>
                         View on PolygonScan
                     </a>
                 </div>
-
-                <!-- Reset -->
-                <button 
-                    onclick="resetForm()"
-                    class="w-full mt-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition">
-                    Process Another KYC
-                </button>
             </div>
+
+            <!-- Info Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="glass-effect rounded-xl p-4 text-center">
+                    <i class="fas fa-unlock-alt text-3xl text-purple-400 mb-2"></i>
+                    <h5 class="font-bold mb-1">Transparency</h5>
+                    <p class="text-xs text-gray-400">Every AI decision step is visible and auditable</p>
+                </div>
+                <div class="glass-effect rounded-xl p-4 text-center">
+                    <i class="fas fa-shield-alt text-3xl text-green-400 mb-2"></i>
+                    <h5 class="font-bold mb-1">Privacy First</h5>
+                    <p class="text-xs text-gray-400">Sensitive data encrypted with AES-256-GCM</p>
+                </div>
+                <div class="glass-effect rounded-xl p-4 text-center">
+                    <i class="fas fa-cube text-3xl text-blue-400 mb-2"></i>
+                    <h5 class="font-bold mb-1">On-Chain Proof</h5>
+                    <p class="text-xs text-gray-400">Immutable record on Polygon blockchain</p>
+                </div>
+            </div>
+
+            <!-- Reset Button -->
+            <button onclick="resetForm()" 
+                    class="w-full py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition">
+                <i class="fas fa-redo mr-2"></i>
+                Process Another KYC
+            </button>
         </div>
-
-        <!-- Info Cards -->
-        <div class="max-w-6xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass-effect rounded-xl p-6 text-center">
-                <div class="text-4xl mb-3">🔓</div>
-                <h4 class="font-bold text-lg mb-2">Break the Black Box</h4>
-                <p class="text-sm text-gray-400">
-                    Every AI decision step is recorded and auditable on IPFS
-                </p>
-            </div>
-            <div class="glass-effect rounded-xl p-6 text-center">
-                <div class="text-4xl mb-3">🔒</div>
-                <h4 class="font-bold text-lg mb-2">Privacy First</h4>
-                <p class="text-sm text-gray-400">
-                    Sensitive data encrypted with AES-256-GCM before storage
-                </p>
-            </div>
-            <div class="glass-effect rounded-xl p-6 text-center">
-                <div class="text-4xl mb-3">⛓️</div>
-                <h4 class="font-bold text-lg mb-2">On-chain Proof</h4>
-                <p class="text-sm text-gray-400">
-                    Immutable reference recorded on Polygon blockchain
-                </p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="container mx-auto px-4 py-8 text-center text-gray-500 text-sm mt-12">
-        <p class="mb-2">ANNA Protocol × Funs.ai | KYC Simulator v2.0 with IPFS</p>
-        <p class="text-xs">Demo running on Polygon Amoy Testnet | Built with transparency in mind</p>
-    </footer>
+    </div>
 
     <script>
         // Mock Document Upload Simulation
@@ -495,11 +435,6 @@
                     selfieUploaded = true;
                 } else {
                     documentUploaded = true;
-                }
-                
-                // Check if both uploaded
-                if (selfieUploaded && documentUploaded) {
-                    console.log('✅ All documents uploaded (simulated)');
                 }
             }, 1500);
         }
